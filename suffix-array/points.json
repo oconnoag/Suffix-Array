@@ -1,0 +1,14 @@
+{
+    "points": [
+        { "Sanity": 1 },
+        { "init" : 1 },
+        { "hash func": 1 },
+        { "bucket func": 1 },
+        { "set": 1 },
+        { "load": 1 },
+        { "get": 1 },
+        { "contains": 1 },
+        { "remove": 1 },
+        { "resize": 1 }
+    ]
+}
