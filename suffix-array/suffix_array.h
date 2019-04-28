@@ -52,5 +52,5 @@ public:
 /*************** Methods ****************/
 /************************************************************/
     string get_substring(int index, int substring_len) const;
-    void print_substring() const;
+    void print_substring(int index, int substring_len) const;
 };

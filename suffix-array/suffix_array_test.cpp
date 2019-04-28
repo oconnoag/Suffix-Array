@@ -14,6 +14,16 @@
 
 using namespace std;
 
+/************************************************************/
+/*********** Forward Declaration of Test Fxns ***************/
+/************************************************************/
+
+Suffix_Array* make_banana_sa();
+
+/************************************************************/
+/*********** TESTS **************/
+/************************************************************/
+
 TEST_CASE("Suffix Array: sanity check", "[sanity]") {
     REQUIRE(true);
 }
@@ -46,8 +56,7 @@ TEST_CASE("Suffix Array: init_suffix_array", "[init]") {
 }
 
 TEST_CASE("Suffix Array : substrings", "[substrings]") {
-    string test_string = "banana";
-    Suffix_Array* test_array = new Suffix_Array(test_string);
+    Suffix_Array* test_array = make_banana_sa();
 
     // 0-length substr
     REQUIRE(test_array->get_substring(0, 0) == "");
@@ -67,7 +76,17 @@ TEST_CASE("Suffix Array : substrings", "[substrings]") {
     REQUIRE(test_array->get_substring(2, 8) == "nana");
 
     // Negative Index/length
-    REQUIRE(test_array->get_substring(-1, 7) == "");
-    REQUIRE(test_array->get_substring(1, -1) == "");
+    REQUIRE(test_array->get_substring(-1, 7) == "ERROR");
+    REQUIRE(test_array->get_substring(1, -1) == "ERROR");
 
+}
+
+/************************************************************/
+/********************* TEST FXNS ****************************/
+/************************************************************/
+
+Suffix_Array *make_banana_sa() {
+    string test_string = "banana";
+    Suffix_Array* test_array = new Suffix_Array(test_string);
+    return test_array;
 }

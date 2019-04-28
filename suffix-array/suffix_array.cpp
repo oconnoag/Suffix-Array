@@ -75,12 +75,18 @@ int *Suffix_Array::get_lcp() const {
 string Suffix_Array::get_substring(int index, int substring_len) const {
     if (index < 0 || substring_len < 0) {
         cout << "Usage : index and substring must be positive" << endl;
-        return "";
+        return "ERROR";
     }
 
     return this->orig_text.substr(index, substring_len);
 }
 
-void Suffix_Array::print_substring() const {
-    // TODO
+void Suffix_Array::print_substring(int index, int substring_len) const {
+    string substring;
+
+    if ( (substring = this->get_substring(index, substring_len)) == "ERROR") {
+        return;
+    }
+
+    cout << "(Index " << index << ") -> " << substring << " <- (Index " << index+substring_len-1 << ")" << endl;
 }
