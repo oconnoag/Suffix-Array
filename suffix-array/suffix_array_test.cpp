@@ -44,3 +44,30 @@ TEST_CASE("Suffix Array: init_suffix_array", "[init]") {
     // TODO Add more tests
     // - Genomic String, Edge Cases (empty string?), Non-ASCII?
 }
+
+TEST_CASE("Suffix Array : substrings", "[substrings]") {
+    string test_string = "banana";
+    Suffix_Array* test_array = new Suffix_Array(test_string);
+
+    // 0-length substr
+    REQUIRE(test_array->get_substring(0, 0) == "");
+
+    // Normal
+    REQUIRE(test_array->get_substring(0, 1) == "b");
+    REQUIRE(test_array->get_substring(0, 2) == "ba");
+    REQUIRE(test_array->get_substring(0, 6) == "banana");
+
+    // Internal
+    REQUIRE(test_array->get_substring(1, 1) == "a");
+    REQUIRE(test_array->get_substring(2, 1) == "n");
+    REQUIRE(test_array->get_substring(2, 3) == "nan");
+
+    // Out of bounds substring returns full
+    REQUIRE(test_array->get_substring(0, 8) == "banana");
+    REQUIRE(test_array->get_substring(2, 8) == "nana");
+
+    // Negative Index/length
+    REQUIRE(test_array->get_substring(-1, 7) == "");
+    REQUIRE(test_array->get_substring(1, -1) == "");
+
+}

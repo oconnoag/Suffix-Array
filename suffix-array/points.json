@@ -1,6 +1,7 @@
 {
     "points": [
         { "Sanity": 1 },
-        { "init" : 1 }
+        { "init" : 4 },
+        { "substrings" : 1 }
     ]
 }
