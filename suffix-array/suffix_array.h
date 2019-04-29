@@ -51,6 +51,23 @@ public:
 /************************************************************/
 /*************** Methods ****************/
 /************************************************************/
+    // Returns the portion of the original text that is of a specified length
     string get_substring(int index, int substring_len) const;
+
+    // Prints the a substring of a particular length to the standard output
+    // stream
     void print_substring(int index, int substring_len) const;
+
+    //
+    bool search_exact(string search_string);
+
+    //
+    int *find_all_exact(string search_string, int mismatch_threshold);
+
+    //
+    bool search_inexact(string search_string);
+
+    //
+    int *find_all_inexact(string search_string, int mismatch_threshold);
+
 };
