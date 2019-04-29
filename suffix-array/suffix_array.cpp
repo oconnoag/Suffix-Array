@@ -33,17 +33,22 @@ int* Suffix_Array::test_lcp_builder() {
     return banana_lcp;
 }
 
-
 /************************************************************/
 /*************** Constructors & Destructors ****************/
 /************************************************************/
 Suffix_Array::Suffix_Array(string orig_text) {
+    // Set up attributes
     this->orig_text = orig_text;
+    this->orig_text_length = this->orig_text.length();
+    this->num_suffixes = this->orig_text_length;
+
+    // Set up arrays
     this->index_array = this->test_builder();
     this->lcp = this->test_lcp_builder();
 }
 
 Suffix_Array::~Suffix_Array() {
+    // Free the heap memory for the arrays
     delete this->index_array;
     delete this->lcp;
 }
@@ -57,7 +62,11 @@ string Suffix_Array::get_orig_text() const {
 }
 
 int Suffix_Array::get_num_suffixes() const {
-    return this->orig_text.length();
+    return this->num_suffixes;
+}
+
+int Suffix_Array::get_orig_text_length() const {
+    return this->orig_text_length;
 }
 
 int *Suffix_Array::get_index_array() const {

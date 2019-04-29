@@ -34,6 +34,7 @@ TEST_CASE("Suffix Array: init_suffix_array", "[init]") {
 
     REQUIRE(test_array != NULL);
     REQUIRE(test_array->get_orig_text() == test_string);
+    REQUIRE(test_array->get_orig_text_length() == 6);
     REQUIRE(test_array->get_num_suffixes() == 6);
 
     // Test the generated index_array

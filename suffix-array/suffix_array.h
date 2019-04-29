@@ -3,14 +3,21 @@
 
 using namespace std;
 
+struct Suffix {
+    char* suffix;
+    int   index;
+};
+
 class Suffix_Array {
 private:
 /************************************************************/
 /*************** Attributes ****************/
 /************************************************************/
-    string orig_text;
-    int* index_array;
-    int* lcp; // Longest common prefix
+    string   orig_text;
+    int      orig_text_length;
+    int*     index_array;
+    int      num_suffixes;
+    int*     lcp; // Longest common prefix
 
 /************************************************************/
 /*************** Private Methods ****************/
@@ -45,6 +52,7 @@ public:
 /*************** Getters ****************/
 /************************************************************/
     string get_orig_text() const;
+    int get_orig_text_length() const;
     int get_num_suffixes() const;
     int *get_index_array() const;
     int *get_lcp() const;
