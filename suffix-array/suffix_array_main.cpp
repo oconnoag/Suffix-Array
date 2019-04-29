@@ -11,12 +11,20 @@ int main(int argc, char* argv[]) {
 
     // Testing - Delete this
     string test = "these are words";
+    cout << (char) test[1] << endl;
 
-    Suffix suffixes[test.length()];
+    char tester[] = "these are words";
+    cout << tester << endl;
 
-    for (int i=0; i < test.length(); i++) {
+    // int test_len = test.length();
+    //
+    // Suffix suffixes[test_len];
+    //
+    // for (int i=0; i < test_len; i++) {
+    //     suffixes[i] = &test[i];
+    // }
 
-    }
+
 
 
     return 0;
