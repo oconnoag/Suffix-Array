@@ -3,10 +3,15 @@
 
 using namespace std;
 
+void test_fxn(char* char_array) {
+    cout << sizeof(char_array) << endl;
+}
+
 int main(int argc, char* argv[]) {
     cout << "Hello World" << endl;
 
-    Suffix_Array my_sa("banana");
+    char naner[] = "banana";
+    Suffix_Array my_sa(naner);
     cout << my_sa.get_num_suffixes() << endl;
 
     // Testing - Delete this
@@ -14,7 +19,7 @@ int main(int argc, char* argv[]) {
     cout << (char) test[1] << endl;
 
     char tester[] = "these are words";
-    cout << tester << endl;
+    test_fxn(tester);
 
     // int test_len = test.length();
     //

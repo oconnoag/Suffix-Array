@@ -36,9 +36,10 @@ int* Suffix_Array::test_lcp_builder() {
 /************************************************************/
 /*************** Constructors & Destructors ****************/
 /************************************************************/
-Suffix_Array::Suffix_Array(string orig_text) {
+Suffix_Array::Suffix_Array(char* input_text) {
     // Set up attributes
-    this->orig_text = orig_text;
+    string input_str(input_text);
+    this->orig_text = input_str;
     this->orig_text_length = this->orig_text.length();
     this->num_suffixes = this->orig_text_length;
 

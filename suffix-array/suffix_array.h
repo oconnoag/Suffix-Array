@@ -29,10 +29,10 @@ private:
 
     // Builds the suffix array (index_array) for the inputed orig_text
     // using a naive approach with comparison-based sorting O( n^2 log(n) )
-    int* naive_builder(string orig_text);
+    int* naive_builder(char* input_text);
 
     // TODO
-    int* skew_builder(string orig_text);
+    int* skew_builder(char* input_text);
 
     // Builds the lcp for the canonical banana string for testing purposes
     int* test_lcp_builder();
@@ -45,7 +45,7 @@ public:
 /************************************************************/
 /*************** Constructors & Destructors ****************/
 /************************************************************/
-    Suffix_Array(string orig_text);
+    Suffix_Array(char* input_text);
     ~Suffix_Array();
 
 /************************************************************/

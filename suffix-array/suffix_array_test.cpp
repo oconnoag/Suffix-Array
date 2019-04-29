@@ -29,8 +29,9 @@ TEST_CASE("Suffix Array: sanity check", "[sanity]") {
 }
 
 TEST_CASE("Suffix Array: init_suffix_array", "[init]") {
+    char input_text[] = "banana";
     string test_string = "banana";
-    Suffix_Array* test_array = new Suffix_Array(test_string);
+    Suffix_Array* test_array = new Suffix_Array(input_text);
 
     REQUIRE(test_array != NULL);
     REQUIRE(test_array->get_orig_text() == test_string);
@@ -150,7 +151,7 @@ TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
 /************************************************************/
 
 Suffix_Array *make_banana_sa() {
-    string test_string = "banana";
+    char test_string[] = "banana";
     Suffix_Array* test_array = new Suffix_Array(test_string);
     return test_array;
 }
