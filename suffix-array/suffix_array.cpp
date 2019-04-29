@@ -90,3 +90,29 @@ void Suffix_Array::print_substring(int index, int substring_len) const {
 
     cout << "(Index " << index << ") -> " << substring << " <- (Index " << index+substring_len-1 << ")" << endl;
 }
+
+bool Suffix_Array::search_exact(string search_string) {
+    // TODO
+    return 1;
+}
+
+vector<int> Suffix_Array::find_all_exact(string search_string) {
+    vector<int> matches;
+
+    // TODO
+
+    return matches;
+}
+
+bool Suffix_Array::search_inexact(string search_string, int mismatch_threshold) {
+    // TODO
+    return 1;
+}
+
+vector<int> Suffix_Array::find_all_inexact(string search_string, int mismatch_threshold) {
+    vector<int> matches;
+
+    // TODO
+
+    return matches;
+}

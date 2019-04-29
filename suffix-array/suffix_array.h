@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -23,14 +24,14 @@ private:
     // using a naive approach with comparison-based sorting O( n^2 log(n) )
     int* naive_builder(string orig_text);
 
-
-    // int* skew_builder(string orig_text);
+    // TODO
+    int* skew_builder(string orig_text);
 
     // Builds the lcp for the canonical banana string for testing purposes
     int* test_lcp_builder();
 
-
-    // int* lcp_builder();
+    // TODO
+    int* lcp_builder();
 
 public:
 
@@ -59,15 +60,19 @@ public:
     void print_substring(int index, int substring_len) const;
 
     //
+    // Note: case-sensitive
     bool search_exact(string search_string);
 
     //
-    int *find_all_exact(string search_string, int mismatch_threshold);
+    // Note: case-sensitive
+    vector<int> find_all_exact(string search_string);
 
     //
-    bool search_inexact(string search_string);
+    // Note: case-sensitive
+    bool search_inexact(string search_string, int mismatch_threshold);
 
     //
-    int *find_all_inexact(string search_string, int mismatch_threshold);
+    // Note: case-sensitive
+    vector<int> find_all_inexact(string search_string, int mismatch_threshold);
 
 };

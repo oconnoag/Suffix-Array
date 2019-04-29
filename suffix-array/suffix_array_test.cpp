@@ -53,6 +53,8 @@ TEST_CASE("Suffix Array: init_suffix_array", "[init]") {
 
     // TODO Add more tests
     // - Genomic String, Edge Cases (empty string?), Non-ASCII?
+
+    delete test_array;
 }
 
 TEST_CASE("Suffix Array : substrings", "[substrings]") {
@@ -78,6 +80,65 @@ TEST_CASE("Suffix Array : substrings", "[substrings]") {
     // Negative Index/length
     REQUIRE(test_array->get_substring(-1, 7) == "ERROR");
     REQUIRE(test_array->get_substring(1, -1) == "ERROR");
+
+    delete test_array;
+
+}
+
+TEST_CASE("Suffix Array : search_exact", "[search_exact]") {
+    Suffix_Array* test_array = make_banana_sa();
+
+    // Substrings present in string
+    REQUIRE( test_array->search_exact("banana") == 1 );
+    REQUIRE( test_array->search_exact("anana") == 1 );
+    REQUIRE( test_array->search_exact("ana") == 1 );
+    REQUIRE( test_array->search_exact("a") == 1 );
+
+    // Character not in orig_string
+    REQUIRE( test_array->search_exact("q") == 0 );
+
+    // Empty string should be handled as false
+    REQUIRE( test_array->search_exact("") == 0 );
+
+    delete test_array;
+
+}
+
+TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
+    Suffix_Array* test_array = make_banana_sa();
+
+    // Substrings present in string with different thresholds
+    REQUIRE( test_array->search_inexact("banana", 0) == 1 );
+    REQUIRE( test_array->search_inexact("anana", 1) == 1 );
+    REQUIRE( test_array->search_inexact("ana", 2) == 1 );
+    REQUIRE( test_array->search_inexact("a", 3) == 1 );
+    REQUIRE( test_array->search_inexact("bxxxx", 10) == 1 );
+
+    // Substrings off by 1
+    REQUIRE( test_array->search_inexact("br", 1) == 1 );
+    REQUIRE( test_array->search_inexact("nar", 1) == 1 );
+    REQUIRE( test_array->search_inexact("banant", 1) == 1 );
+
+    // Substrings with intermittent mismatches
+    REQUIRE( test_array->search_inexact("bxnxnx", 3) == 1 );
+
+    // Substrings off by more than threshold
+    REQUIRE( test_array->search_inexact("banant", 0) == 0 );
+    REQUIRE( test_array->search_inexact("arara", 1) == 0 );
+    REQUIRE( test_array->search_inexact("bxxxx", 3) == 0 );
+
+    // Substrings with first letter mismatched
+    REQUIRE( test_array->search_inexact("xanana", 3) == 0 );
+    REQUIRE( test_array->search_inexact("xnana", 3) == 0 );
+
+    // Character not in orig_string
+    REQUIRE( test_array->search_inexact("q", 1) == 0 );
+
+    // Empty string should be handled as false
+    REQUIRE( test_array->search_inexact("", 1) == 0 );
+
+
+    delete test_array;
 
 }
 
