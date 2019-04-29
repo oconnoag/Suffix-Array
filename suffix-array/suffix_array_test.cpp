@@ -137,6 +137,8 @@ TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
     // Empty string should be handled as false
     REQUIRE( test_array->search_inexact("", 1) == 0 );
 
+    // Threshold must be positive
+    REQUIRE( test_array->search_inexact("banant", -1) == 0 );
 
     delete test_array;
 
