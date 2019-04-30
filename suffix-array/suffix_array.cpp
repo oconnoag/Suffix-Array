@@ -181,7 +181,7 @@ int *Suffix_Array::get_lcp() const {
 /************************************************************/
 /*************** Public Suffix Array Methods ****************/
 /************************************************************/
-void print_suffix_array() {
+void Suffix_Array::print_suffix_array() {
     int* index_array = this->get_index_array();
     int num_suffixes = this->get_num_suffixes();
 
@@ -192,7 +192,7 @@ void print_suffix_array() {
     cout << endl;
 }
 
-void print_lcp() {
+void Suffix_Array::print_lcp() {
     int* lcp = this->get_lcp();
     int num_suffixes = this->get_num_suffixes();
 

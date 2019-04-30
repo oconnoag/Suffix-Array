@@ -57,6 +57,29 @@ TEST_CASE("Suffix Array: init_suffix_array", "[init]") {
     // - Genomic String, Edge Cases (empty string?), Non-ASCII?
 
     delete test_array;
+
+    /******************************************/
+
+    char input_text2[] = "aaccttgg";
+    Suffix_Array genetic = Suffix_Array(input_text2);
+    int genetic_num_suffixes = genetic.get_num_suffixes();
+
+    REQUIRE(genetic.get_orig_text() == input_text2);
+    REQUIRE(genetic.get_orig_text_length() == 8);
+
+    REQUIRE(genetic_num_suffixes == 8);
+
+    int genetic_expected_sa[8] = {0,1,2,3,7,6,5,4};
+    int genetic_expected_lcp[8] = {0,1,0,1,0,1,0,1};
+
+    for (int i=0; i < genetic_num_suffixes; i++) {
+        REQUIRE(genetic.get_index_array()[i] == genetic_expected_sa[i]);
+    }
+
+    for (int i=0; i < genetic_num_suffixes; i++) {
+        REQUIRE(genetic.get_lcp()[i] == genetic_expected_lcp[i]);
+    }
+
 }
 
 TEST_CASE("Suffix Array : substrings", "[substrings]") {
