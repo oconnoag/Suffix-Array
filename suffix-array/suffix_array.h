@@ -51,6 +51,9 @@ private:
     // This yields a complexity of O(n)
     int* lcp_builder(char* input_text);
 
+    // Performs the binary search for the
+    bool search_exact_recursive(string& search_string, int l, int r);
+
 public:
 
 /************************************************************/
@@ -86,18 +89,18 @@ public:
 
     //
     // Note: case-sensitive
-    bool search_exact(string search_string);
+    bool search_exact(string& search_string);
 
     //
     // Note: case-sensitive
-    vector<int> find_all_exact(string search_string);
+    vector<int> find_all_exact(string& search_string);
 
     //
     // Note: case-sensitive
-    bool search_inexact(string search_string, int mismatch_threshold);
+    bool search_inexact(string& search_string, int mismatch_threshold);
 
     //
     // Note: case-sensitive
-    vector<int> find_all_inexact(string search_string, int mismatch_threshold);
+    vector<int> find_all_inexact(string& search_string, int mismatch_threshold);
 
 };

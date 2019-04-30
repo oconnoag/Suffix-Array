@@ -114,16 +114,22 @@ TEST_CASE("Suffix Array : search_exact", "[search_exact]") {
     Suffix_Array* test_array = make_banana_sa();
 
     // Substrings present in string
-    REQUIRE( test_array->search_exact("banana") == 1 );
-    REQUIRE( test_array->search_exact("anana") == 1 );
-    REQUIRE( test_array->search_exact("ana") == 1 );
-    REQUIRE( test_array->search_exact("a") == 1 );
+    string str1 = "banana";
+    string str2 = "anana";
+    string str3 = "ana";
+    string str4 = "a";
+    REQUIRE( test_array->search_exact(str1) == 1 );
+    REQUIRE( test_array->search_exact(str2) == 1 );
+    REQUIRE( test_array->search_exact(str3) == 1 );
+    REQUIRE( test_array->search_exact(str4) == 1 );
 
     // Character not in orig_string
-    REQUIRE( test_array->search_exact("q") == 0 );
+    string str5 = "q";
+    REQUIRE( test_array->search_exact(str5) == 0 );
 
     // Empty string should be handled as false
-    REQUIRE( test_array->search_exact("") == 0 );
+    string empty = "";
+    REQUIRE( test_array->search_exact(empty) == 0 );
 
     delete test_array;
 
@@ -133,37 +139,51 @@ TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
     Suffix_Array* test_array = make_banana_sa();
 
     // Substrings present in string with different thresholds
-    REQUIRE( test_array->search_inexact("banana", 0) == 1 );
-    REQUIRE( test_array->search_inexact("anana", 1) == 1 );
-    REQUIRE( test_array->search_inexact("ana", 2) == 1 );
-    REQUIRE( test_array->search_inexact("a", 3) == 1 );
-    REQUIRE( test_array->search_inexact("bxxxx", 10) == 1 );
+    string str_banana = "banana";
+    string str_anana = "anana";
+    string str_ana = "ana";
+    string str_a = "a";
+    string str_bxxxx = "bxxxx";
+    REQUIRE( test_array->search_inexact(str_banana, 0) == 1 );
+    REQUIRE( test_array->search_inexact(str_anana, 1) == 1 );
+    REQUIRE( test_array->search_inexact(str_ana, 2) == 1 );
+    REQUIRE( test_array->search_inexact(str_a, 3) == 1 );
+    REQUIRE( test_array->search_inexact(str_bxxxx, 10) == 1 );
 
     // Substrings off by 1
-    REQUIRE( test_array->search_inexact("br", 1) == 1 );
-    REQUIRE( test_array->search_inexact("nar", 1) == 1 );
-    REQUIRE( test_array->search_inexact("banant", 1) == 1 );
+    string str_br = "br";
+    string str_nar = "nar";
+    string str_banant = "banant";
+    REQUIRE( test_array->search_inexact(str_br, 1) == 1 );
+    REQUIRE( test_array->search_inexact(str_nar, 1) == 1 );
+    REQUIRE( test_array->search_inexact(str_banant, 1) == 1 );
 
     // Substrings with intermittent mismatches
-    REQUIRE( test_array->search_inexact("bxnxnx", 3) == 1 );
+    string str_bxnxnx = "bxnxnx";
+    REQUIRE( test_array->search_inexact(str_bxnxnx, 3) == 1 );
 
     // Substrings off by more than threshold
-    REQUIRE( test_array->search_inexact("banant", 0) == 0 );
-    REQUIRE( test_array->search_inexact("arara", 1) == 0 );
-    REQUIRE( test_array->search_inexact("bxxxx", 3) == 0 );
+    string str_arara = "arara";
+    REQUIRE( test_array->search_inexact(str_banant, 0) == 0 );
+    REQUIRE( test_array->search_inexact(str_arara, 1) == 0 );
+    REQUIRE( test_array->search_inexact(str_bxxxx, 3) == 0 );
 
     // Substrings with first letter mismatched
-    REQUIRE( test_array->search_inexact("xanana", 3) == 0 );
-    REQUIRE( test_array->search_inexact("xnana", 3) == 0 );
+    string str_xanana = "xanana";
+    string str_xnana = "xnana";
+    REQUIRE( test_array->search_inexact(str_xanana, 3) == 0 );
+    REQUIRE( test_array->search_inexact(str_xnana, 3) == 0 );
 
     // Character not in orig_string
-    REQUIRE( test_array->search_inexact("q", 1) == 0 );
+    string str_q = "q";
+    REQUIRE( test_array->search_inexact(str_q, 1) == 0 );
 
     // Empty string should be handled as false
-    REQUIRE( test_array->search_inexact("", 1) == 0 );
+    string empty = "";
+    REQUIRE( test_array->search_inexact(empty, 1) == 0 );
 
     // Threshold must be positive
-    REQUIRE( test_array->search_inexact("banant", -1) == 0 );
+    REQUIRE( test_array->search_inexact(str_banant, -1) == 0 );
 
     delete test_array;
 
