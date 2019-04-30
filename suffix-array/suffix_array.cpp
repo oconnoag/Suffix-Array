@@ -33,6 +33,15 @@ int* Suffix_Array::test_lcp_builder() {
     return banana_lcp;
 }
 
+int* Suffix_Array::naive_builder(char* input_text) {
+    unsigned num_suffixes = this->get_num_suffixes();
+    Suffix suffixes[num_suffixes];
+
+    for (unsigned i=0; i < num_suffixes; i++) {
+
+    }
+}
+
 /************************************************************/
 /*************** Constructors & Destructors ****************/
 /************************************************************/
@@ -40,7 +49,7 @@ Suffix_Array::Suffix_Array(char* input_text) {
     // Set up attributes
     string input_str(input_text);
     this->orig_text = input_str;
-    this->orig_text_length = this->orig_text.length();
+    this->orig_text_length = (unsigned) this->orig_text.length();
     this->num_suffixes = this->orig_text_length;
 
     // Set up arrays
@@ -62,11 +71,11 @@ string Suffix_Array::get_orig_text() const {
     return this->orig_text;
 }
 
-int Suffix_Array::get_num_suffixes() const {
+unsigned int Suffix_Array::get_num_suffixes() const {
     return this->num_suffixes;
 }
 
-int Suffix_Array::get_orig_text_length() const {
+unsigned int Suffix_Array::get_orig_text_length() const {
     return this->orig_text_length;
 }
 
