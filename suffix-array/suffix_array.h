@@ -42,7 +42,13 @@ private:
     // Builds the lcp for the canonical banana string for testing purposes
     int* test_lcp_builder();
 
-    // TODO
+    // Builds the lcp array using the Kasai algorithm
+    // In short:  this algorithm uses the built suffix array to
+    // walk along the suffixes one by one while keeping track of the
+    // longest prefixes -- when the next suffix is being traversed however,
+    // the counter is not reset to 0, so certain comparisons are skipped.
+    //
+    // This yields a complexity of O(n)
     int* lcp_builder(char* input_text);
 
 public:
@@ -65,6 +71,12 @@ public:
 /************************************************************/
 /*************** Methods ****************/
 /************************************************************/
+    // Print out a string representation of the suffix array
+    void print_suffix_array();
+
+    // Print out a string representation of the lcp
+    void print_lcp();
+
     // Returns the portion of the original text that is of a specified length
     string get_substring(int index, int substring_len) const;
 

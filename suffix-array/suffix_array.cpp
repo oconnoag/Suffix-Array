@@ -39,8 +39,8 @@ int* Suffix_Array::naive_builder(char* input_text) {
     Suffix suffixes[num_suffixes];
 
     for (int i=0; i < num_suffixes; i++) {
-            suffixes[i].suffix = input_text + i;
-            suffixes[i].index = i;
+        suffixes[i].suffix = input_text + i;
+        suffixes[i].index = i;
     }
 
     // Sort using std::sort in the algorithms header files,
@@ -181,6 +181,27 @@ int *Suffix_Array::get_lcp() const {
 /************************************************************/
 /*************** Public Suffix Array Methods ****************/
 /************************************************************/
+void print_suffix_array() {
+    int* index_array = this->get_index_array();
+    int num_suffixes = this->get_num_suffixes();
+
+    for (int i=0; i < num_suffixes; i++) {
+        cout << index_array[i] << " " << flush;
+    }
+
+    cout << endl;
+}
+
+void print_lcp() {
+    int* lcp = this->get_lcp();
+    int num_suffixes = this->get_num_suffixes();
+
+    for (int i=0; i < num_suffixes; i++) {
+        cout << lcp[i] << " " << flush;
+    }
+
+    cout << endl;
+}
 
 string Suffix_Array::get_substring(int index, int substring_len) const {
     if (index < 0 || substring_len < 0) {
