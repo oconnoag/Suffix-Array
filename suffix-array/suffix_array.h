@@ -28,16 +28,13 @@ private:
 /*************** Private Methods ****************/
 /************************************************************/
 
-    //
-    int** build_suffix_and_lcp_arrays(char* input_text);
-
     // Used to build the canonical banana string for testing purposes
     // Stores an int array to heap
     int* test_builder();
 
     // Builds the suffix array (index_array) for the inputed orig_text
     // using a naive approach with comparison-based sorting O( n^2 log(n) )
-    int* naive_builder(Suffix* suffixes);
+    int* naive_builder(char* input_text);
 
     // TODO
     int* skew_builder();
@@ -46,7 +43,7 @@ private:
     int* test_lcp_builder();
 
     // TODO
-    int* lcp_builder(Suffix* suffixes);
+    int* lcp_builder(char* input_text);
 
 public:
 

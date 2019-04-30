@@ -34,10 +34,7 @@ int* Suffix_Array::test_lcp_builder() {
     return banana_lcp;
 }
 
-int** Suffix_Array::build_suffix_and_lcp_arrays(char* input_text) {
-    // Final holding place for suffix and lcp arrays
-    int** suffix_lcp = new int*[2];
-
+int* Suffix_Array::naive_builder(char* input_text) {
     int num_suffixes = this->get_num_suffixes();
     Suffix suffixes[num_suffixes];
 
@@ -45,17 +42,6 @@ int** Suffix_Array::build_suffix_and_lcp_arrays(char* input_text) {
             suffixes[i].suffix = input_text + i;
             suffixes[i].index = i;
     }
-
-    // Builds the suffix array (and puts the suffixes in sorted order)
-    suffix_lcp[0] = this->naive_builder(suffixes);
-    suffix_lcp[1] = this->lcp_builder(suffixes);
-
-    return suffix_lcp;
-
-}
-
-int* Suffix_Array::naive_builder(Suffix* suffixes) {
-    int num_suffixes = this->get_num_suffixes();
 
     // Sort using std::sort in the algorithms header files,
     // this is a O(n*log(n)) sorting algorithm called the IntroSort
@@ -77,14 +63,59 @@ int* Suffix_Array::naive_builder(Suffix* suffixes) {
     return suffix_array;
 }
 
-
-int* Suffix_Array::lcp_builder(Suffix* suffixes) {
+int* Suffix_Array::lcp_builder(char* input_text) {
     int num_suffixes = this->get_num_suffixes();
 
     int* lcp_array = new int[num_suffixes];
 
+    // Inverse Suffix Array
+    int* suffix_array = this->get_index_array();
+    int inv_sa[num_suffixes];
+
+    // Create the inverse suffix array:
+    //   this holds the indicies corresponding to each i
+    //
+    // Ex: Suffix Array - {(0) 5, (1) 3, (2) 1, (3) 0, (4) 4, (5) 2} - Indicies in ()
+    //     Start at 0 -- find the index that is holding 0 -> it's index 3
+    //     Then go to 1 -- that's at index 2
+    //     Repeat until you've got all the suffixes
+    //
+    //     Result:
+    //     inv_sa - {3, 2, 5, 1, 4, 0}
+    //
+    //     This reads:
+    //      origin2l_text[0] is at index 3 in the suffix array
+    //      original_text[1] is at index 2 in the suffix array
+    //      ...
     for (int i=0; i < num_suffixes; i++) {
-        lcp_array[i] = suffixes[i].index;
+        inv_sa[suffix_array[i]] = i;
+    }
+
+    // Build the lcp
+    int counter = 0;
+
+    // Go through each prefix one by one
+    for (int i=0; i < num_suffixes; i++) {
+        int k = inv_sa[i];
+
+        if ( k == 0 ) {
+            lcp_array[k] = 0;
+            continue;
+        }
+
+        int j = suffix_array[k-1];
+
+        while ( input_text[i + counter] == input_text[j + counter] ) {
+            counter++;
+        }
+
+        // The counter value will indicate the shared prefix between k and k-1
+        lcp_array[k] = counter;
+
+        if (counter > 0) {
+            counter--;
+        }
+
     }
 
     return lcp_array;
@@ -112,12 +143,9 @@ Suffix_Array::Suffix_Array(char* input_text) {
     this->num_suffixes = this->orig_text_length;
 
     /******************* Construct Arrays ****************************/
-    int** arrays = this->build_suffix_and_lcp_arrays(input_text);
 
-    this->index_array = arrays[0];
-    this->lcp = arrays[1];
-
-    delete arrays;
+    this->index_array = naive_builder(input_text);
+    this->lcp = lcp_builder(input_text);
 }
 
 Suffix_Array::~Suffix_Array() {

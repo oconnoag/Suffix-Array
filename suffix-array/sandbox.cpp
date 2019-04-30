@@ -9,12 +9,18 @@ int main(int argc, char* argv[]) {
 
     char naner[] = "banana";
     Suffix_Array my_sa(naner);
-    cout << my_sa.get_num_suffixes() << endl;
+    int num_suffixes = my_sa.get_num_suffixes();
+
+    for (int i=0; i < num_suffixes; i++) {
+        cout << my_sa.get_lcp()[i] << endl;
+    }
 
     cout << endl;
 
-    for (int i=0; i < my_sa.get_num_suffixes(); i++) {
-        cout << my_sa.get_lcp()[i] << endl;
+    for (int i=0; i < num_suffixes; i++) {
+        cout << my_sa.get_index_array()[i] << endl;
     }
+
+
     return 0;
 }
