@@ -1,5 +1,6 @@
 #include "suffix_array.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -38,8 +39,31 @@ int* Suffix_Array::naive_builder(char* input_text) {
     Suffix suffixes[num_suffixes];
 
     for (unsigned i=0; i < num_suffixes; i++) {
-
+            suffixes[i].suffix = input_text + i;
+            suffixes[i].index = i;
     }
+
+    // Sort using std::sort in the algorithms header files,
+    // this is a O(n*log(n)) sorting algorithm called the IntroSort
+    // which, from what I understand is built using a combination of
+    // of different comparison sorts in a way that guarantees
+    // the linearithmic sort time
+    //
+    // The complexity of this algorithm is actually O(N^2 log(N)) though,
+    // because string comparison using strcmp (see the Suffix struct in
+    // the suffix_array.h file) is O(N) algorithm
+    sort(suffixes, suffixes + num_suffixes);
+
+    int* suffix_array = new int[num_suffixes];
+
+    unsigned i = 0;
+    // Use the c++ for each iterator with references to avoid needless
+    // object copying
+    for ( const auto& suffix : suffixes ) {
+        suffix_array[i++] = suffix.index;
+    }
+
+    return suffix_array;
 }
 
 /************************************************************/
@@ -53,7 +77,7 @@ Suffix_Array::Suffix_Array(char* input_text) {
     this->num_suffixes = this->orig_text_length;
 
     // Set up arrays
-    this->index_array = this->test_builder();
+    this->index_array = this->naive_builder(input_text);
     this->lcp = this->test_lcp_builder();
 }
 

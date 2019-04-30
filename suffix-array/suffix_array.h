@@ -5,7 +5,7 @@ using namespace std;
 
 struct Suffix {
     char*          suffix;
-    unsigned int    index;
+    unsigned int   index;
 
     // Overload the < operator to allow for comparison
     bool operator <(const Suffix& suff) const {
