@@ -4,8 +4,8 @@
 using namespace std;
 
 struct Suffix {
-    char*          suffix;
-    unsigned int   index;
+    char*  suffix;
+    int     index;
 
     // Overload the < operator to allow for comparison
     bool operator <(const Suffix& suff) const {
@@ -18,11 +18,11 @@ private:
 /************************************************************/
 /*************** Attributes ****************/
 /************************************************************/
-    string                orig_text;
-    unsigned int   orig_text_length;
-    int*                index_array;
-    unsigned int       num_suffixes;
-    int*                        lcp; // Longest common prefix
+    string         orig_text;
+    int     orig_text_length;
+    int*         index_array;
+    int         num_suffixes;
+    int*                 lcp; // Longest common prefix
 
 /************************************************************/
 /*************** Private Methods ****************/
@@ -57,8 +57,8 @@ public:
 /*************** Getters ****************/
 /************************************************************/
     string get_orig_text() const;
-    unsigned int get_orig_text_length() const;
-    unsigned int get_num_suffixes() const;
+    int get_orig_text_length() const;
+    int get_num_suffixes() const;
     int *get_index_array() const;
     int *get_lcp() const;
 

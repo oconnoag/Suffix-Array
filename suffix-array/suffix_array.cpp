@@ -35,10 +35,10 @@ int* Suffix_Array::test_lcp_builder() {
 }
 
 int* Suffix_Array::naive_builder(char* input_text) {
-    unsigned num_suffixes = this->get_num_suffixes();
+    int num_suffixes = this->get_num_suffixes();
     Suffix suffixes[num_suffixes];
 
-    for (unsigned i=0; i < num_suffixes; i++) {
+    for (int i=0; i < num_suffixes; i++) {
             suffixes[i].suffix = input_text + i;
             suffixes[i].index = i;
     }
@@ -56,7 +56,7 @@ int* Suffix_Array::naive_builder(char* input_text) {
 
     int* suffix_array = new int[num_suffixes];
 
-    unsigned i = 0;
+    int i = 0;
     // Use the c++ for each iterator with references to avoid needless
     // object copying
     for ( const auto& suffix : suffixes ) {
@@ -73,7 +73,16 @@ Suffix_Array::Suffix_Array(char* input_text) {
     // Set up attributes
     string input_str(input_text);
     this->orig_text = input_str;
-    this->orig_text_length = (unsigned) this->orig_text.length();
+    this->orig_text_length = this->orig_text.length();
+
+    // If text is too long -- only catches the overflows of
+    // unsigned->signed ints, not if the unsigned int overflows
+    if (this->orig_text_length < 0 ) {
+        // Catch this in main code when constructor called
+        // https://www.tutorialspoint.com/cplusplus/cpp_exceptions_handling.htm
+        throw "Length of text too long -> overflowed";
+    }
+
     this->num_suffixes = this->orig_text_length;
 
     // Set up arrays
@@ -95,11 +104,11 @@ string Suffix_Array::get_orig_text() const {
     return this->orig_text;
 }
 
-unsigned int Suffix_Array::get_num_suffixes() const {
+int Suffix_Array::get_num_suffixes() const {
     return this->num_suffixes;
 }
 
-unsigned int Suffix_Array::get_orig_text_length() const {
+int Suffix_Array::get_orig_text_length() const {
     return this->orig_text_length;
 }
 
