@@ -34,7 +34,10 @@ int* Suffix_Array::test_lcp_builder() {
     return banana_lcp;
 }
 
-int* Suffix_Array::naive_builder(char* input_text) {
+int** Suffix_Array::build_suffix_and_lcp_arrays(char* input_text) {
+    // Final holding place for suffix and lcp arrays
+    int** suffix_lcp = new int*[2];
+
     int num_suffixes = this->get_num_suffixes();
     Suffix suffixes[num_suffixes];
 
@@ -42,6 +45,17 @@ int* Suffix_Array::naive_builder(char* input_text) {
             suffixes[i].suffix = input_text + i;
             suffixes[i].index = i;
     }
+
+    // Builds the suffix array (and puts the suffixes in sorted order)
+    suffix_lcp[0] = this->naive_builder(suffixes);
+    suffix_lcp[1] = this->lcp_builder(suffixes);
+
+    return suffix_lcp;
+
+}
+
+int* Suffix_Array::naive_builder(Suffix* suffixes) {
+    int num_suffixes = this->get_num_suffixes();
 
     // Sort using std::sort in the algorithms header files,
     // this is a O(n*log(n)) sorting algorithm called the IntroSort
@@ -56,20 +70,32 @@ int* Suffix_Array::naive_builder(char* input_text) {
 
     int* suffix_array = new int[num_suffixes];
 
-    int i = 0;
-    // Use the c++ for each iterator with references to avoid needless
-    // object copying
-    for ( const auto& suffix : suffixes ) {
-        suffix_array[i++] = suffix.index;
+    for (int i=0; i < num_suffixes; i++) {
+        suffix_array[i] = suffixes[i].index;
     }
 
     return suffix_array;
+}
+
+
+int* Suffix_Array::lcp_builder(Suffix* suffixes) {
+    int num_suffixes = this->get_num_suffixes();
+
+    int* lcp_array = new int[num_suffixes];
+
+    for (int i=0; i < num_suffixes; i++) {
+        lcp_array[i] = suffixes[i].index;
+    }
+
+    return lcp_array;
+
 }
 
 /************************************************************/
 /*************** Constructors & Destructors ****************/
 /************************************************************/
 Suffix_Array::Suffix_Array(char* input_text) {
+
     // Set up attributes
     string input_str(input_text);
     this->orig_text = input_str;
@@ -85,9 +111,13 @@ Suffix_Array::Suffix_Array(char* input_text) {
 
     this->num_suffixes = this->orig_text_length;
 
-    // Set up arrays
-    this->index_array = this->naive_builder(input_text);
-    this->lcp = this->test_lcp_builder();
+    /******************* Construct Arrays ****************************/
+    int** arrays = this->build_suffix_and_lcp_arrays(input_text);
+
+    this->index_array = arrays[0];
+    this->lcp = arrays[1];
+
+    delete arrays;
 }
 
 Suffix_Array::~Suffix_Array() {
