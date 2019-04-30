@@ -1,1 +1,0 @@
-compileThis suffix_array_main

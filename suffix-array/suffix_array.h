@@ -6,6 +6,11 @@ using namespace std;
 struct Suffix {
     char* suffix;
     int   index;
+
+    // Overload the < operator to allow for comparison
+    bool operator <(const Suffix& suff) const {
+		return strcmp(suffix, suff.suffix) < 0 ? 1 : 0;
+	}
 };
 
 class Suffix_Array {
