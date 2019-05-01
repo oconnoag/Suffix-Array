@@ -51,9 +51,6 @@ private:
     // This yields a complexity of O(n)
     int* lcp_builder(char* input_text);
 
-    // Performs the binary search for the
-    bool search_exact_recursive(string& search_string, int l, int r);
-
 public:
 
 /************************************************************/
@@ -65,11 +62,11 @@ public:
 /************************************************************/
 /*************** Getters ****************/
 /************************************************************/
-    string get_orig_text() const;
-    int get_orig_text_length() const;
-    int get_num_suffixes() const;
-    int *get_index_array() const;
-    int *get_lcp() const;
+    string          get_orig_text() const;
+    int      get_orig_text_length() const;
+    int          get_num_suffixes() const;
+    int          *get_index_array() const;
+    int                  *get_lcp() const;
 
 /************************************************************/
 /*************** Methods ****************/
@@ -86,6 +83,18 @@ public:
     // Prints the a substring of a particular length to the standard output
     // stream
     void print_substring(int index, int substring_len) const;
+
+    // Performs the binary search for seraching/finding fxns
+    //
+    // Returns a int that corresponds to the index in original string that
+    // best matches the search string
+    //
+    // Run a simple string comparison to determine if the suffix at the
+    // index begins/equals the search_string
+    //
+    // Runs with complexity O(P logN), where P is the length of the search string
+    //    and N is the length of the original_text
+    int binary_search(string search_string);
 
     //
     // Note: case-sensitive

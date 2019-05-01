@@ -1,9 +1,10 @@
 {
     "points": [
         { "Sanity": 1 },
-        { "init" : 4 },
+        { "init" : 5 },
         { "substrings" : 1 },
-        { "search_exact" : 1 },
-        { "search_inexact" : 1 }
+        { "binary_search" : 1 },
+        { "search_exact" : 3 },
+        { "search_inexact" : 3 }
     ]
 }

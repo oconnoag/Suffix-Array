@@ -110,6 +110,50 @@ TEST_CASE("Suffix Array : substrings", "[substrings]") {
 
 }
 
+TEST_CASE("Suffix Array : Binary Search", "[binary_search]") {
+    Suffix_Array* test_array = make_banana_sa();
+
+    // Within the suffix range
+    REQUIRE( test_array->binary_search("ban") == 3 );
+    REQUIRE( test_array->binary_search("banana") == 3 );
+    REQUIRE( test_array->binary_search("b") == 3 );
+    REQUIRE( test_array->binary_search("a") == 0 );
+    REQUIRE( test_array->binary_search("ana") == 1 );
+    REQUIRE( test_array->binary_search("anana") == 2 );
+    REQUIRE( test_array->binary_search("anan") == 2 );
+    REQUIRE( test_array->binary_search("nana") == 5 );
+    REQUIRE( test_array->binary_search("n") == 4 );
+    REQUIRE( test_array->binary_search("na") == 4 );
+
+    // Outside of the ranges of the suffixes
+    REQUIRE( test_array->binary_search("zan") == 5 );
+    REQUIRE( test_array->binary_search("J") == 0 );
+
+    // Within the suffix range, but not actually matching
+    REQUIRE( test_array->binary_search("fred") == 4 );
+    REQUIRE( test_array->binary_search("cat") == 4 );
+
+    delete test_array;
+
+    /********************* Longer Test ************************/
+
+    char gen_str[] = "cccccttttttagggcctgctgctgctgctgctg";
+    Suffix_Array genetic = Suffix_Array(gen_str);
+
+    // First letter sections
+    REQUIRE( genetic.binary_search("a") == 0 );
+    REQUIRE( genetic.binary_search("c") == 1 );
+    REQUIRE( genetic.binary_search("g") == 13 );
+    REQUIRE( genetic.binary_search("t") == 22 );
+
+    // Matches
+    REQUIRE( genetic.binary_search("ctg") == 6 );
+
+    // Non Matches
+    REQUIRE( genetic.binary_search("cta") == 6 );
+
+}
+
 TEST_CASE("Suffix Array : search_exact", "[search_exact]") {
     Suffix_Array* test_array = make_banana_sa();
 

@@ -222,6 +222,40 @@ void Suffix_Array::print_substring(int index, int substring_len) const {
     cout << "(Index " << index << ") -> " << substring << " <- (Index " << index+substring_len-1 << ")" << endl;
 }
 
+int Suffix_Array::binary_search(string search_string) {
+    int ss_len = search_string.length();
+    int num_suffixes = this->num_suffixes;
+
+    int l = 0;
+    int r = num_suffixes - 1;
+
+    if ( search_string.compare((&this->orig_text[this->index_array[0]])) <= 0 ) {
+        // If the search_string is lexographically smaller than all suffixes
+        // l is locked at 0
+    }
+
+    else if ( search_string.compare((&this->orig_text[this->index_array[r]])) >= 0 ) {
+        // If the search_string is lexographically larger than all suffixes
+        l = r;
+    }
+
+    else {
+        // If the search string should fall within the bounds of the suffixes
+        // use binary search to find that position
+        while (l < r) {
+            int m = (l + r) / 2;
+
+            if ( this->orig_text.compare(this->index_array[m], ss_len, search_string) >= 0 ) {
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+    }
+
+    return l;
+}
+
 bool Suffix_Array::search_exact(string& search_string) {
     // TODO
     return 1;

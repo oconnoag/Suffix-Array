@@ -12,6 +12,13 @@ int main(int argc, char* argv[]) {
     int num_suffixes = my_sa.get_num_suffixes();
     my_sa.print_suffix_array();
     my_sa.print_lcp();
+    cout << endl;
+
+    string naner2(naner);
+    cout << &naner2[2];
+
+    // cout << my_sa.binary_search("n");
+
 
     // for (int i=0; i < num_suffixes; i++) {
     //     cout << my_sa.get_lcp()[i] << endl;
