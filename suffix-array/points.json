@@ -6,6 +6,7 @@
         { "binary_search" : 1 },
         { "search_exact" : 2 },
         { "find_all_exact" : 3 },
+        { "inexact_compare" : 1 },
         { "search_inexact" : 3 },
         { "find_all_inexact" : 4 }
     ]

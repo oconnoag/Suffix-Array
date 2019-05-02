@@ -7,7 +7,8 @@ using namespace std;
 int main(int argc, char* argv[]) {
     cout << "Hello World" << endl;
 
-    char naner[] = "banana";
+    // char naner[] = "banana";
+    char naner[] = "actgactgactgactagcacta";
     Suffix_Array my_sa(naner);
     int num_suffixes = my_sa.get_num_suffixes();
     my_sa.print_suffix_array();
@@ -19,11 +20,19 @@ int main(int argc, char* argv[]) {
         cout << tester << endl;
     }
 
-    string searcher = "nana";
+    string searcher = "cta";
     vector<int> found = my_sa.find_all_exact(searcher);
 
     for ( auto& founder: found ) {
-        cout << "Found: " << founder << endl;
+        cout << "Found: " << founder << " " ;
+        cout << &my_sa.get_orig_text()[founder] << endl;
+    }
+
+    string another_test = "alijah";
+    if (another_test[5] == 104) {
+        cout << "yup" << endl;
+    } else {
+        cout << "nope" << endl;
     }
 
     return 0;

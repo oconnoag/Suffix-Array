@@ -295,14 +295,33 @@ vector<int> Suffix_Array::find_all_exact(string& search_string) {
     // Find other matches
     while ( (bin_search_index < this->num_suffixes) &&
             this->lcp[++bin_search_index] >= ss_len ) {
-        matches.push_back(this->index_array[bin_search_index]);        
+        matches.push_back(this->index_array[bin_search_index]);
     }
 
     return matches;
 }
 
 bool Suffix_Array::search_inexact(string& search_string, int mismatch_threshold) {
-    // TODO
+    // Threshold must be positive
+    if (mismatch_threshold < 0) {
+        cout << "Theshold must be positive" << endl;
+        return 0;
+    }
+
+    int ss_len = search_string.length();
+
+    // Find the index of the position where the first letter of the search string is
+    int bin_search_index = this->binary_search(&search_string[0]);
+
+    // Is it a match?
+    if ( this->orig_text.compare(this->index_array[bin_search_index], ss_len, search_string) == 0 ) {
+        // matches.push_back(this->index_array[bin_search_index]);
+    } else {
+        // return matches;
+    }
+
+
+
     return 1;
 }
 
@@ -312,4 +331,33 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
     // TODO
 
     return matches;
+}
+
+/************************************************************/
+/****************** Extra Functions **********************/
+/************************************************************/
+
+bool inexact_compare(const string& str1, const string& str2,
+                     int compare_len, int threshold) {
+
+    int i = 0;
+
+    while ( i < compare_len ) {
+        if ( str1[i] == 0 || str2[i] == 0 ) {
+            // At the end of the string
+            return 0;
+        }
+
+        if ( str1[i] != str2[i] ) {
+            threshold--;
+
+            if ( (threshold < 0) ) {
+                return 0;
+            }
+        }
+
+        i++;
+    }
+
+    return 1;
 }

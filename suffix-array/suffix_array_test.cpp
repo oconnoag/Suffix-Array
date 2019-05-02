@@ -220,6 +220,35 @@ TEST_CASE("Suffix Array : find_all_exact", "[find_all_exact]") {
     delete test_array;
 }
 
+TEST_CASE("String Method : inexact_compare", "[inexact_compare]") {
+    string str1 = "Alijah";
+    string str2 = "Alijah";
+    string str3 = "Alijar";
+    string str4 = "Hajila";
+    string str5 = "k";
+
+    // Exact
+    REQUIRE( inexact_compare(str1, str2, 6, 0) == 1);
+    REQUIRE( inexact_compare(str1, str2, 6, 1) == 1);
+    REQUIRE( inexact_compare(str1, str2, 3, 0) == 1);
+
+    // Not Exact
+    REQUIRE( inexact_compare(str1, str3, 6, 1) == 1);
+    REQUIRE( inexact_compare(str1, str3, 6, 0) == 0);
+    REQUIRE( inexact_compare(str1, str3, 3, 0) == 1);
+
+    // Quite Different
+    REQUIRE( inexact_compare(str1, str4, 6, 0) == 0);
+    REQUIRE( inexact_compare(str1, str4, 6, 5) == 0);
+    REQUIRE( inexact_compare(str1, str4, 6, 6) == 1);
+
+    // Short String
+    REQUIRE( inexact_compare(str1, str5, 6, 3) == 0);
+    REQUIRE( inexact_compare(str5, str1, 6, 3) == 0);
+    REQUIRE( inexact_compare(str5, str1, 2, 3) == 0);
+
+}
+
 TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
     Suffix_Array* test_array = make_banana_sa();
 

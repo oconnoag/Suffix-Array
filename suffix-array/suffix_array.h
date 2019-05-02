@@ -113,3 +113,11 @@ public:
     vector<int> find_all_inexact(string& search_string, int mismatch_threshold);
 
 };
+
+/************************************************************/
+/****************** Extra Functions **********************/
+/************************************************************/
+
+// TODO
+bool inexact_compare(const string& str1, const string& str2,
+                     int compare_len, int threshold);
