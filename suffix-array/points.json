@@ -4,7 +4,9 @@
         { "init" : 5 },
         { "substrings" : 1 },
         { "binary_search" : 1 },
-        { "search_exact" : 3 },
-        { "search_inexact" : 3 }
+        { "search_exact" : 2 },
+        { "find_all_exact" : 3 },
+        { "search_inexact" : 3 },
+        { "find_all_inexact" : 4 }
     ]
 }

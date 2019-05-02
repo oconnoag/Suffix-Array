@@ -12,24 +12,19 @@ int main(int argc, char* argv[]) {
     int num_suffixes = my_sa.get_num_suffixes();
     my_sa.print_suffix_array();
     my_sa.print_lcp();
-    cout << endl;
 
-    string naner2(naner);
-    cout <<naner2[2];
+    vector<int> test = {1,3};
 
-    // cout << my_sa.binary_search("n");
+    for (auto& tester : test) {
+        cout << tester << endl;
+    }
 
+    string searcher = "nana";
+    vector<int> found = my_sa.find_all_exact(searcher);
 
-    // for (int i=0; i < num_suffixes; i++) {
-    //     cout << my_sa.get_lcp()[i] << endl;
-    // }
-    //
-    // cout << endl;
-    //
-    // for (int i=0; i < num_suffixes; i++) {
-    //     cout << my_sa.get_index_array()[i] << endl;
-    // }
-
+    for ( auto& founder: found ) {
+        cout << "Found: " << founder << endl;
+    }
 
     return 0;
 }

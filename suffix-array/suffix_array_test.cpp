@@ -8,6 +8,7 @@
 #include <iostream>
 #include "suffix_array.h"
 #include <string>
+#include <vector>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -176,6 +177,45 @@ TEST_CASE("Suffix Array : search_exact", "[search_exact]") {
     REQUIRE( test_array->search_exact(str6) == 0 );
     REQUIRE( test_array->search_exact(str7) == 0 );
     REQUIRE( test_array->search_exact(str8) == 0 );
+
+    delete test_array;
+}
+
+TEST_CASE("Suffix Array : find_all_exact", "[find_all_exact]") {
+    Suffix_Array* test_array = make_banana_sa();
+
+    // Substrings present in string
+    string str1 = "banana";
+    string str2 = "ana";
+    string str3 = "a";
+
+    vector<int> str1_expected = {0};
+    vector<int> str2_expected = {3, 1};
+    vector<int> str3_expected = {5, 3, 1};
+
+    vector<int> str1_locs = test_array->find_all_exact(str1);
+    vector<int> str2_locs = test_array->find_all_exact(str2);
+    vector<int> str3_locs = test_array->find_all_exact(str3);
+
+    for (unsigned long i=0; i < str1_locs.size(); i++) {
+        REQUIRE( str1_locs.at(i) == str1_expected.at(i) );
+    }
+
+    for (unsigned long i=0; i < str2_locs.size(); i++) {
+        cout << str2_locs.at(i) << endl;
+        REQUIRE( str2_locs.at(i) == str2_expected.at(i) );
+    }
+
+    for (unsigned long i=0; i < str3_locs.size(); i++) {
+        REQUIRE( str3_locs.at(i) == str3_expected.at(i) );
+    }
+
+    // Character not in orig_string
+    string str4 = "q";
+
+    vector<int> str4_expected = test_array->find_all_exact(str4);
+
+    REQUIRE(str4_expected.empty());
 
     delete test_array;
 }
