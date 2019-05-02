@@ -169,14 +169,15 @@ TEST_CASE("Suffix Array : search_exact", "[search_exact]") {
 
     // Character not in orig_string
     string str5 = "q";
+    string str6 = "bar";
+    string str7 = "xana";
+    string str8 = " ";
     REQUIRE( test_array->search_exact(str5) == 0 );
-
-    // Empty string should be handled as false
-    string empty = "";
-    REQUIRE( test_array->search_exact(empty) == 0 );
+    REQUIRE( test_array->search_exact(str6) == 0 );
+    REQUIRE( test_array->search_exact(str7) == 0 );
+    REQUIRE( test_array->search_exact(str8) == 0 );
 
     delete test_array;
-
 }
 
 TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
@@ -230,7 +231,6 @@ TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
     REQUIRE( test_array->search_inexact(str_banant, -1) == 0 );
 
     delete test_array;
-
 }
 
 /************************************************************/

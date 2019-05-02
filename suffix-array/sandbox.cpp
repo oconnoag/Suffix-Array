@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
     cout << endl;
 
     string naner2(naner);
-    cout << &naner2[2];
+    cout <<naner2[2];
 
     // cout << my_sa.binary_search("n");
 

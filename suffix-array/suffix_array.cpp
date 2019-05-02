@@ -257,8 +257,22 @@ int Suffix_Array::binary_search(string search_string) {
 }
 
 bool Suffix_Array::search_exact(string& search_string) {
-    // TODO
-    return 1;
+    int ss_len = search_string.length();
+
+    // Find the index of the position where the search_string should be
+    //   - It should also be the first index of the substring instance that
+    //     matches it (i.e. the smallest lexographical match)
+    int bin_search_index = this->binary_search(search_string);
+    cout << bin_search_index << endl;
+    cout <<  this->orig_text.compare(bin_search_index, ss_len, search_string) << endl;
+
+    // Is it a match?
+    if ( this->orig_text.compare(this->index_array[bin_search_index], ss_len, search_string) == 0 ) {
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
 vector<int> Suffix_Array::find_all_exact(string& search_string) {
