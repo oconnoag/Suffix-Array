@@ -302,6 +302,74 @@ TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
     delete test_array;
 }
 
+TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
+    Suffix_Array* test_array = make_banana_sa();
+
+    /************ substring in original -- no threshold *******************/
+    string str1 = "banana";
+    string str2 = "ana";
+    string str3 = "na";
+
+    vector<int> str1_expected = {0};
+    vector<int> str2_expected = {3, 1};
+    vector<int> str3_expected = {4, 2};
+
+    vector<int> str1_locs = test_array->find_all_inexact(str1, 0);
+    vector<int> str2_locs = test_array->find_all_inexact(str2, 0);
+    vector<int> str3_locs = test_array->find_all_inexact(str3, 0);
+
+    for (unsigned long i=0; i < str1_locs.size(); i++) {
+        REQUIRE( str1_locs.at(i) == str1_expected.at(i) );
+    }
+
+    for (unsigned long i=0; i < str2_locs.size(); i++) {
+        REQUIRE( str2_locs.at(i) == str2_expected.at(i) );
+    }
+
+    for (unsigned long i=0; i < str3_locs.size(); i++) {
+        REQUIRE( str3_locs.at(i) == str3_expected.at(i) );
+    }
+
+    /************** Char not in string -- no threshold ******************/
+    string str4 = "q";
+
+    vector<int> str4_expected = test_array->find_all_inexact(str4, 0);
+
+    REQUIRE(str4_expected.empty());
+
+    /************** Inexact Strings with thresholds ******************/
+    string str5 = "banant";
+    string str6 = "arr";
+    string str7 = "arara";
+
+    vector<int> str5_expected = {0};
+    vector<int> str6_expected = {3, 1};
+    vector<int> str7_expected = {1};
+    vector<int> str7_expected2 = {};
+
+    vector<int> str5_locs = test_array->find_all_inexact(str5, 1);
+    vector<int> str6_locs = test_array->find_all_inexact(str6, 2);
+    vector<int> str7_locs = test_array->find_all_inexact(str7, 3);
+    vector<int> str7_locs2 = test_array->find_all_inexact(str7, 1);
+
+    for (unsigned long i=0; i < str5_locs.size(); i++) {
+        REQUIRE( str5_locs.at(i) == str5_expected.at(i) );
+    }
+
+    for (unsigned long i=0; i < str6_locs.size(); i++) {
+        REQUIRE( str6_locs.at(i) == str6_expected.at(i) );
+    }
+
+    for (unsigned long i=0; i < str7_locs.size(); i++) {
+        REQUIRE( str7_locs.at(i) == str7_expected.at(i) );
+    }
+
+    REQUIRE( str7_locs2.empty() );
+
+
+    delete test_array;
+}
+
 /************************************************************/
 /********************* TEST FXNS ****************************/
 /************************************************************/

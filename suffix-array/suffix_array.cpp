@@ -312,6 +312,7 @@ bool Suffix_Array::search_inexact(string& search_string, int mismatch_threshold)
 
     // Find the index of the position where the first letter of the search string is
     int bin_search_index = this->binary_search( string(1, search_string[0]) );
+    cout << "bsi " << bin_search_index << endl;
 
     // Is it an inexact match?
     if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
@@ -320,8 +321,8 @@ bool Suffix_Array::search_inexact(string& search_string, int mismatch_threshold)
     }
 
     // Look across other suffixes starting with the same first letter
-    while ( (bin_search_index < this->num_suffixes) &&
-             this->lcp[++bin_search_index] != 0 ) {
+    while ( (++bin_search_index < this->num_suffixes) &&
+             this->lcp[bin_search_index] != 0 ) {
         if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
                             search_string, ss_len, mismatch_threshold) ) {
             return 1;
@@ -358,14 +359,37 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
     }
 
     // Look across other suffixes starting with the same first letter
-    while ( (bin_search_index < this->num_suffixes) &&
-             this->lcp[++bin_search_index] != 0 ) {
+    //
+    // If the last suffix was an inexact match, then we should check the
+    // the lcp to see if the first ss_len chars are the same (substituting a
+    // constant-time operation for a linear-operation)
+    //
+    // If the last wasn't a match, then we need to perform the inexact
+    // comparison to see if the suffix is an inexact match
+    cout << "bsi " << bin_search_index << " ss " << search_string << endl;
+    int* curr_lcp = this->lcp + bin_search_index;
+    bool last_matched = 0;
+    while ( (++bin_search_index < this->num_suffixes) && (*(++curr_lcp) != 0) ) {
+
+        if ( last_matched
+             && ((*curr_lcp) >= ss_len) ) {
+            // The previous suffix 'inexact-matched' and the current suffix
+            // has the same *curr_lcp number of prefix chars -- thus making
+            // the current suffix an 'inexact-match' as well
+            matches.push_back(this->index_array[bin_search_index]);
+            continue;
+        }
+
         if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
                             search_string, ss_len, mismatch_threshold) ) {
-
+            // The string 'inexact-matched' the current suffix
             matches.push_back(this->index_array[bin_search_index]);
+            last_matched = 1;
 
+        } else {
+            last_matched = 0;
         }
+
     }
 
     return matches;
