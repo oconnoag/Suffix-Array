@@ -65,8 +65,8 @@ public:
     string          get_orig_text() const;
     int      get_orig_text_length() const;
     int          get_num_suffixes() const;
-    int          *get_index_array() const;
-    int                  *get_lcp() const;
+    int*          get_index_array() const;
+    int*                  get_lcp() const;
 
 /************************************************************/
 /*************** Methods ****************/
@@ -118,13 +118,28 @@ public:
 /****************** Extra Functions **********************/
 /************************************************************/
 
-// TODO
+// Used to compare two strings for an "inexact match" of up to compare_len
+// characters.
+//
+// If one/both strings are shorter than the compare_len, returns 0
+//
+// The threshold specifies the number of characters than be different before
+// returning 0
+//
+// Note: Comparisons are case sensitive threshold must be positive
+//
+// Important Note: This algorithm requires that the first letter of the
+//                 two strings match for an "inexact match" to occur.
 bool inexact_compare(const string& str1, const string& str2,
                      int compare_len, int threshold);
 
 // Returns the complement sequence of the inputted string
 //  {'a' -> 't', 't' -> 'a', 'c' -> 'g', 'g' -> 'c'}
+//
+// Input string must only include characters in the set {'a', 'c', 't', 'g'}
+//    - Note that the letteres are lowercase
+//    - Returns "ERROR" otherwise
 string complementizer(const string& str);
 
-//
+// Returns the reverse of the inputted string
 string reverser(const string& str);
