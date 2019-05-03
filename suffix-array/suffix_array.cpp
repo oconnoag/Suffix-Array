@@ -357,12 +357,31 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
     }
 
     // Look across other suffixes starting with the same first letter
+    bool last_matched = 0;
     while ( (++bin_search_index < this->num_suffixes)
                 && (this->lcp[bin_search_index] != 0 ) ) {
+
+        // If last suffix was an inexact match and the current suffix has an
+        // lcp greater than the search length, then we've got another match
+        // (inexact or exact!)
+        //
+        // More efficient for long strings with similar patterns (like
+        // genetic sequences) since we are dealing with time constant
+        // operations instead of linear ones
+        if ( last_matched && this->lcp[bin_search_index] >= ss_len ) {
+            matches.push_back(this->index_array[bin_search_index]);
+            continue;
+        }
+
+        // If the last suffix did not match, then we need to perform the
+        // linear search of the suffix for an 'inexact match'
         if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
                             search_string, ss_len, mismatch_threshold) ) {
             // The string 'inexact-matched' the current suffix
             matches.push_back(this->index_array[bin_search_index]);
+            last_matched = 1;
+        } else {
+            last_matched = 0;
         }
 
     }
