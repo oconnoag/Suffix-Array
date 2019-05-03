@@ -429,8 +429,15 @@ string complementizer(const string& str) {
 
     string comp;
 
-    for ( const char& ch : str ) {
-        comp.append( 1, actg_map[ch] );
+    // Can only complementizer genetic sequences (i.e. strings that contain
+    // characters in the set {a,c,t,g})
+    try {
+        for ( const char& ch : str ) {
+            comp.append( 1, actg_map.at(ch) );
+        }
+    } catch (const exception& e) {
+        cout << "ERROR - Symbol not in the set {a,c,t,g} was encountered" << endl;
+        return "ERROR";
     }
 
     return comp;

@@ -422,8 +422,13 @@ TEST_CASE("Extra : complementizer", "[complementizer]") {
     string orig2 = "aaaaaaaaaa";
     string comped2 = complementizer(orig2);
 
-    REQUIRE(orig2 == "aaaaaaaaaa");
     REQUIRE(comped2 == "tttttttttt");
+
+    // non-genetic string can't be processed
+    string orig3 = "banana";
+    string comped3 = complementizer(orig3);
+
+    REQUIRE(comped3 == "ERROR");
 }
 
 /************************************************************/
