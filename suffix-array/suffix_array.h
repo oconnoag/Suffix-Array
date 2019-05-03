@@ -122,7 +122,8 @@ public:
 bool inexact_compare(const string& str1, const string& str2,
                      int compare_len, int threshold);
 
-//
+// Returns the complement sequence of the inputted string
+//  {'a' -> 't', 't' -> 'a', 'c' -> 'g', 'g' -> 'c'}
 string complementizer(const string& str);
 
 //

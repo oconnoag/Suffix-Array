@@ -415,7 +415,6 @@ TEST_CASE("Extra : complementizer", "[complementizer]") {
     string orig = "actgactg";
     string comped = complementizer(orig);
 
-    REQUIRE(orig == "actgactg");
     REQUIRE(comped == "tgactgac");
 
     // Test 2
@@ -429,6 +428,34 @@ TEST_CASE("Extra : complementizer", "[complementizer]") {
     string comped3 = complementizer(orig3);
 
     REQUIRE(comped3 == "ERROR");
+}
+
+TEST_CASE("Extra : reverser", "[reverser]") {
+    // Test 1
+    string orig = "actgactg";
+    string reversed = reverser(orig);
+
+    REQUIRE(reversed == "gtcagtca");
+
+    // Test 2
+    string orig2 = "aaaaaaaaa";
+    string reversed2 = reverser(orig2);
+
+    REQUIRE(reversed2 == "aaaaaaaaa");
+
+    // Test 3
+    string orig3 = "";
+    string reversed3 = reverser(orig3);
+
+    REQUIRE(reversed3 == "");
+
+    // Test 4
+    string orig4 = "abcdegfhi";
+    string reversed4 = reverser(orig4);
+
+    REQUIRE(reversed4 == "ihfgedcba");
+
+
 }
 
 /************************************************************/

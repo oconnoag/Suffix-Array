@@ -442,3 +442,15 @@ string complementizer(const string& str) {
 
     return comp;
 }
+
+string reverser(const string& str) {
+    string rev = str;
+    int str_len = str.length();
+
+    for (int i=str_len-1, j=0; j < str_len/2; i--, j++) {
+        rev[j] = str[i];
+        rev[i] = str[j];
+    }
+
+    return rev;
+}
