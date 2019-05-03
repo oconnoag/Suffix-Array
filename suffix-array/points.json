@@ -8,6 +8,8 @@
         { "find_all_exact" : 3 },
         { "inexact_compare" : 1 },
         { "search_inexact" : 3 },
-        { "find_all_inexact" : 4 }
+        { "find_all_inexact" : 4 },
+        { "complementizer" : 1 },
+        { "reverser" : 1 }
     ]
 }

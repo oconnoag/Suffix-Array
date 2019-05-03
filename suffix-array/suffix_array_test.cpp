@@ -410,6 +410,22 @@ TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
     }
 }
 
+TEST_CASE("Extra : complementizer", "[complementizer]") {
+    // Test 1
+    string orig = "actgactg";
+    string comped = complementizer(orig);
+
+    REQUIRE(orig == "actgactg");
+    REQUIRE(comped == "tgactgac");
+
+    // Test 2
+    string orig2 = "aaaaaaaaaa";
+    string comped2 = complementizer(orig2);
+
+    REQUIRE(orig2 == "aaaaaaaaaa");
+    REQUIRE(comped2 == "tttttttttt");
+}
+
 /************************************************************/
 /********************* TEST FXNS ****************************/
 /************************************************************/

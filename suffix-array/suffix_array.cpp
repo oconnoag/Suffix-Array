@@ -1,6 +1,7 @@
 #include "suffix_array.h"
 #include <iostream>
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
@@ -417,4 +418,20 @@ bool inexact_compare(const string& str1, const string& str2,
     }
 
     return 1;
+}
+
+string complementizer(const string& str) {
+    map<char, char> actg_map;
+    actg_map.insert( pair<char, char>('a', 't') );
+    actg_map.insert( pair<char, char>('t', 'a') );
+    actg_map.insert( pair<char, char>('c', 'g') );
+    actg_map.insert( pair<char, char>('g', 'c') );
+
+    string comp;
+
+    for ( const char& ch : str ) {
+        comp.append( 1, actg_map[ch] );
+    }
+
+    return comp;
 }

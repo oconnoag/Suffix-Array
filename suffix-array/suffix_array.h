@@ -121,3 +121,9 @@ public:
 // TODO
 bool inexact_compare(const string& str1, const string& str2,
                      int compare_len, int threshold);
+
+//
+string complementizer(const string& str);
+
+//
+string reverser(const string& str);

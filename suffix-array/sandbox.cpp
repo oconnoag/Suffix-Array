@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include <algorithm>
 #include "suffix_array.cpp"
 
@@ -14,6 +15,15 @@ int main(int argc, char* argv[]) {
     string ss = "xanana";
     // cout << my_sa.binary_search()
     cout << my_sa.search_inexact(ss, 1) << endl;
+
+    cout << endl << endl;
+
+    //
+    string test_gen = "actg";
+
+    for ( char& t : test_gen ) {
+        cout << t << endl;
+    }
 
     return 0;
 }
