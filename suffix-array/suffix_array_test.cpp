@@ -398,6 +398,16 @@ TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
     for (unsigned long i=0; i < str8_locs3.size(); i++) {
         REQUIRE( str8_locs3.at(i) == str8_expected3.at(i) );
     }
+
+    // Long searcher (point mutation)
+    string pnt_mutation = "cccccttttttagggcctcctgctgctgctgctg";
+
+    vector<int> pnt_mut_expected = {0};
+    vector<int> pnt_mut_loc = genetic.find_all_inexact(pnt_mutation, 1);
+
+    for (unsigned long i=0; i < pnt_mut_loc.size(); i++) {
+        REQUIRE( pnt_mut_loc.at(i) == pnt_mut_expected.at(i) );
+    }
 }
 
 /************************************************************/
