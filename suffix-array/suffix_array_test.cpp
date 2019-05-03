@@ -290,11 +290,11 @@ TEST_CASE("Suffix Array : search_inexact", "[search_inexact]") {
 
     // Character not in orig_string
     string str_q = "q";
-    REQUIRE( test_array->search_inexact(str_q, 1) == 0 );
+    REQUIRE( test_array->search_inexact(str_q, 1) == 1 );
 
-    // Empty string should be handled as false
+    // Empty string should return 1
     string empty = "";
-    REQUIRE( test_array->search_inexact(empty, 1) == 0 );
+    REQUIRE( test_array->search_inexact(empty, 1) == 1 );
 
     // Threshold must be positive
     REQUIRE( test_array->search_inexact(str_banant, -1) == 0 );

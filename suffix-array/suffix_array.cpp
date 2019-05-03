@@ -311,26 +311,65 @@ bool Suffix_Array::search_inexact(string& search_string, int mismatch_threshold)
     int ss_len = search_string.length();
 
     // Find the index of the position where the first letter of the search string is
-    int bin_search_index = this->binary_search(&search_string[0]);
+    int bin_search_index = this->binary_search( string(1, search_string[0]) );
 
-    // Is it a match?
-    if ( this->orig_text.compare(this->index_array[bin_search_index], ss_len, search_string) == 0 ) {
-        // matches.push_back(this->index_array[bin_search_index]);
-    } else {
-        // return matches;
+    // Is it an inexact match?
+    if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
+                         search_string, ss_len, mismatch_threshold) ) {
+        return 1;
     }
 
+    // Look across other suffixes starting with the same first letter
+    while ( (bin_search_index < this->num_suffixes) &&
+             this->lcp[++bin_search_index] != 0 ) {
+        if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
+                            search_string, ss_len, mismatch_threshold) ) {
+            return 1;
+        }
+    }
 
-
-    return 1;
+    return 0;
 }
 
 vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_threshold) {
     vector<int> matches;
 
-    // TODO
+    // Threshold must be positive
+    if (mismatch_threshold < 0) {
+        cout << "Theshold must be positive" << endl;
+        return matches;
+    }
+
+    int ss_len = search_string.length();
+
+    // Find the index of the position where the first letter of the search string is
+    int bin_search_index = this->binary_search( string(1, search_string[0]) );
+
+    // Is it an inexact match?
+    if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
+                         search_string, ss_len, mismatch_threshold) ) {
+
+        matches.push_back(this->index_array[bin_search_index]);
+
+    } else {
+
+        return matches;
+
+    }
+
+    // Look across other suffixes starting with the same first letter
+    while ( (bin_search_index < this->num_suffixes) &&
+             this->lcp[++bin_search_index] != 0 ) {
+        if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
+                            search_string, ss_len, mismatch_threshold) ) {
+
+            matches.push_back(this->index_array[bin_search_index]);
+
+        }
+    }
 
     return matches;
+
 }
 
 /************************************************************/
