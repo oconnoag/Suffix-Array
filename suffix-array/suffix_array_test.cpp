@@ -366,8 +366,38 @@ TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
 
     REQUIRE( str7_locs2.empty() );
 
-
     delete test_array;
+
+    /****************** Genetic **********************/
+    /****************** More Complex **********************/
+
+    char gen_str[] = "cccccttttttagggcctgctgctgctgctgctg";
+    Suffix_Array genetic = Suffix_Array(gen_str);
+
+    string str8 = "cctcc";
+
+    vector<int> str8_locs0 = genetic.find_all_inexact(str8, 0);
+    vector<int> str8_locs1 = genetic.find_all_inexact(str8, 1);
+    vector<int> str8_locs2 = genetic.find_all_inexact(str8, 2);
+    vector<int> str8_locs3 = genetic.find_all_inexact(str8, 3);
+
+    vector<int> str8_expected1 = {0, 15};
+    vector<int> str8_expected2 = {0, 1, 15, 3};
+    vector<int> str8_expected3 = {0, 1, 2, 15, 3, 28, 25, 22, 19, 16, 4};
+
+    REQUIRE( str8_locs0.empty() );
+
+    for (unsigned long i=0; i < str8_locs1.size(); i++) {
+        REQUIRE( str8_locs1.at(i) == str8_expected1.at(i) );
+    }
+
+    for (unsigned long i=0; i < str8_locs2.size(); i++) {
+        REQUIRE( str8_locs2.at(i) == str8_expected2.at(i) );
+    }
+
+    for (unsigned long i=0; i < str8_locs3.size(); i++) {
+        REQUIRE( str8_locs3.at(i) == str8_expected3.at(i) );
+    }
 }
 
 /************************************************************/
