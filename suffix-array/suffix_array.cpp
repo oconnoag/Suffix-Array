@@ -391,6 +391,20 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
 
 }
 
+bool special_search(string& search_string,
+                    bool EXACT=true, int mismatch_threshold=0,
+                    bool COMPLEMENT=false, bool REVERSE=false) {
+    return 1;
+}
+
+vector<int> special_find_all(string& search_string,
+                             bool EXACT=true, int mismatch_threshold=0,
+                             bool COMPLEMENT=false, bool REVERSE=false) {
+    vector<int> matches;
+
+    return matches;
+}
+
 /************************************************************/
 /****************** Extra Functions **********************/
 /************************************************************/

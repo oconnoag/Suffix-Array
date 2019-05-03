@@ -112,6 +112,18 @@ public:
     // Note: case-sensitive
     vector<int> find_all_inexact(string& search_string, int mismatch_threshold);
 
+    //
+    // Note: case-sensitive
+    bool special_search(string& search_string,
+                        bool EXACT=true, int mismatch_threshold=0,
+                        bool COMPLEMENT=false, bool REVERSE=false);
+
+    //
+    // Note: case-sensitive
+    vector<int> special_find_all(string& search_string,
+                                 bool EXACT=true, int mismatch_threshold=0,
+                                 bool COMPLEMENT=false, bool REVERSE=false);
+
 };
 
 /************************************************************/
