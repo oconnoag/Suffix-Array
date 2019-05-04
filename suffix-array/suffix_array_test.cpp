@@ -454,8 +454,51 @@ TEST_CASE("Extra : reverser", "[reverser]") {
     string reversed4 = reverser(orig4);
 
     REQUIRE(reversed4 == "ihfgedcba");
+}
 
+TEST_CASE("Suffix Array : special_search", "[special_search]") {
+    char gen_str[] = "cccccttttttagggcctgctgctgctgctgctg";
+    Suffix_Array genetic = Suffix_Array(gen_str);
 
+    // Normal Search
+    string str1 = "ccccc";
+    string str1_1 = "aaaaa";
+    REQUIRE( genetic.special_search(str1) );
+    REQUIRE( !genetic.special_search(str1_1) );
+
+    // inexact search
+    string str2 = "cctcc";
+    string str2_1 = "aaaa";
+    REQUIRE( genetic.special_search(str2, false, 1) );
+    REQUIRE( !genetic.special_search(str2_1, false, 1) );
+
+    // Non-reversed complement
+    string str3 = "gggggaaa";
+    string str3_1 = "ttttt";
+    REQUIRE( genetic.special_search(str3, true, 0, true, false) );
+    REQUIRE( !genetic.special_search(str3_1, true, 0, true, false) );
+
+    // Reversed non-complement
+    string str4 = "tcgtcgtcg";
+    string str4_1 = "aggg";
+    REQUIRE( genetic.special_search(str4, true, 0, false, true) );
+    REQUIRE( !genetic.special_search(str4_1, true, 0, false, true) );
+
+    // Exact Reversed complement
+    string str5 = "aaaagggg";
+    string str5_1 = "ttttt";
+    REQUIRE( genetic.special_search(str5, true, 0, true, true) );
+    REQUIRE( !genetic.special_search(str5_1, true, 0, true, true) );
+
+    // Inexact Reversed complement
+    string str6 = "aaaagtgg";
+    string str6_1 = "ttttt";
+    REQUIRE( genetic.special_search(str6, false, 1, true, true) );
+    REQUIRE( !genetic.special_search(str6_1, false, 1, true, true) );
+
+    // Including characters not in the set {actg} while trying to complementize
+    string str7 = "aaax";
+    REQUIRE( !genetic.special_search(str7, true, 0, true, true) );
 }
 
 /************************************************************/

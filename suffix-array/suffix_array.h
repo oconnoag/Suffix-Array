@@ -115,14 +115,14 @@ public:
     //
     // Note: case-sensitive
     bool special_search(string& search_string,
-                        bool EXACT=true, int mismatch_threshold=0,
-                        bool COMPLEMENT=false, bool REVERSE=false);
+                        bool exact=true, int mismatch_threshold=0,
+                        bool complement=false, bool reverse=false);
 
     //
     // Note: case-sensitive
     vector<int> special_find_all(string& search_string,
-                                 bool EXACT=true, int mismatch_threshold=0,
-                                 bool COMPLEMENT=false, bool REVERSE=false);
+                                 bool exact=true, int mismatch_threshold=0,
+                                 bool complement=false, bool reverse=false);
 
 };
 

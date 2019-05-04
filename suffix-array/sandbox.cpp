@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
         cout << t << endl;
     }
 
-    cout << reverser("Alijah0d") << endl;
+    cout << reverser("cccccttttttagggcctgctgctgctgctgctg") << endl;
 
     return 0;
 }
