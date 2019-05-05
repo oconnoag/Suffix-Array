@@ -77,6 +77,9 @@ public:
     // Print out a string representation of the lcp
     void print_lcp();
 
+    //
+    void print_suffixes();
+
     // Returns the portion of the original text that is of a specified length
     string get_substring(int index, int substring_len) const;
 

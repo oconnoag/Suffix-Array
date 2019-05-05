@@ -2,6 +2,8 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <iomanip>
+#include <cmath>
 
 using namespace std;
 
@@ -202,6 +204,26 @@ void Suffix_Array::print_lcp() {
     }
 
     cout << endl;
+}
+
+void Suffix_Array::print_suffixes() {
+    int* suffix_indexes = this->index_array;
+    int* lcp = this->lcp;
+    int num_suffixes = this->num_suffixes;
+    int digits = log10(num_suffixes);
+
+    cout << endl;
+    cout << "/****************************************************************************************************/" << endl;;
+    cout << "          <Index>  ||  <Suffix>  ||  <Index in Original Text>  ||  <Longest Common Prefix>    " << endl;
+    cout << "/****************************************************************************************************/" << endl;;
+
+    for (int i=0; i < num_suffixes; i++) {
+        cout << setw(digits + 1) << i << setw(num_suffixes + 3) << flush;
+        cout << &this->orig_text[suffix_indexes[i]] << "   " << flush;
+        cout << setw(digits + 1) << suffix_indexes[i] << "   " << flush;
+        cout << setw(digits + 1) << lcp[i] << endl;
+    }
+
 }
 
 string Suffix_Array::get_substring(int index, int substring_len) const {

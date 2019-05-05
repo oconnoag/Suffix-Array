@@ -29,6 +29,16 @@ int main(int argc, char* argv[]) {
 
     cout << endl << endl;
 
+    my_sa.print_suffixes();
+
+    string test_str;
+    cout << "enter string" << endl;
+    getline(cin, test_str);
+
+    for (int i=0; i <= test_str.length(); i++) {
+        cout << (int) test_str[i] << endl;
+    }
+    cout << test_str << endl;
     /////////////////////////////////////////////////////////////////
     ////////////////////// gens ////////////////////////////
     /////////////////////////////////////////////////////////////////
