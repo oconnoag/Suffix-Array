@@ -12,20 +12,40 @@ int main(int argc, char* argv[]) {
     char naner[] = "banana";
     Suffix_Array my_sa(naner);
 
-    string ss = "xanana";
+    string ss = "ana";
     // cout << my_sa.binary_search()
-    cout << my_sa.search_inexact(ss, 1) << endl;
+    // cout << my_sa.search_inexact(ss, 1) << endl;
+
+    vector<int> naner_found = my_sa.find_all_inexact(ss, 1);
+    // vector<int> naner_found = my_sa.find_all_exact(ss);
+
+    cout << "Found: " << endl;
+    for (auto& founders : naner_found) {
+        cout << "f: " << founders << endl;
+    }
+
 
     cout << endl << endl;
 
+    /////////////////////////////////////////////////////////////////
+    ////////////////////// gens ////////////////////////////
+    /////////////////////////////////////////////////////////////////
+
+    // cout << reverser("cccccttttttagggcctgctgctgctgctgctg") << endl;
+    // cout << reverser("tcgtcgtcg") << endl;
     //
-    string test_gen = "actg";
+    // char gen_str[] = "cccccttttttagggcctgctgctgctgctgctg";
+    // Suffix_Array genetic(gen_str);
+    //
+    // string search_string = "gctgctgct";
+    // vector<int> found = genetic.find_all_inexact(search_string, 2);
+    //
+    // cout << "found:" << endl;
+    // for ( auto& founder : found ) {
+    //     cout << founder << endl;
+    // }
 
-    for ( char& t : test_gen ) {
-        cout << t << endl;
-    }
 
-    cout << reverser("cccccttttttagggcctgctgctgctgctgctg") << endl;
 
     return 0;
 }

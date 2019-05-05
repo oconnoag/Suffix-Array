@@ -344,6 +344,7 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
 
     // Find the index of the position where the first letter of the search string is
     int bin_search_index = this->binary_search( string(1, search_string[0]) );
+    cout << "bsi " << bin_search_index << endl;
 
     // Is it an inexact match?
     if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
@@ -351,12 +352,8 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
 
         matches.push_back(this->index_array[bin_search_index]);
 
-    } else {
-
-        return matches;
-
     }
-
+    
     // Look across other suffixes starting with the same first letter
     bool last_matched = 0;
     while ( (++bin_search_index < this->num_suffixes)
@@ -369,6 +366,7 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
         // More efficient for long strings with similar patterns (like
         // genetic sequences) since we are dealing with time constant
         // operations instead of linear ones
+        cout << this->lcp[bin_search_index] << endl;
         if ( last_matched && this->lcp[bin_search_index] >= ss_len ) {
             matches.push_back(this->index_array[bin_search_index]);
             continue;

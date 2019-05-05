@@ -197,16 +197,16 @@ TEST_CASE("Suffix Array : find_all_exact", "[find_all_exact]") {
     vector<int> str2_locs = test_array->find_all_exact(str2);
     vector<int> str3_locs = test_array->find_all_exact(str3);
 
-    for (unsigned long i=0; i < str1_locs.size(); i++) {
+    for (unsigned long i=0; i < str1_expected.size(); i++) {
         REQUIRE( str1_locs.at(i) == str1_expected.at(i) );
     }
 
-    for (unsigned long i=0; i < str2_locs.size(); i++) {
+    for (unsigned long i=0; i < str2_expected.size(); i++) {
         cout << str2_locs.at(i) << endl;
         REQUIRE( str2_locs.at(i) == str2_expected.at(i) );
     }
 
-    for (unsigned long i=0; i < str3_locs.size(); i++) {
+    for (unsigned long i=0; i < str3_expected.size(); i++) {
         REQUIRE( str3_locs.at(i) == str3_expected.at(i) );
     }
 
@@ -315,18 +315,20 @@ TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
     vector<int> str3_expected = {4, 2};
 
     vector<int> str1_locs = test_array->find_all_inexact(str1, 0);
+    cout << "str1_locs " << endl;
+    std::copy(str1_locs.begin(), str1_locs.end(), std::ostream_iterator<char>(std::cout, " "));
     vector<int> str2_locs = test_array->find_all_inexact(str2, 0);
     vector<int> str3_locs = test_array->find_all_inexact(str3, 0);
 
-    for (unsigned long i=0; i < str1_locs.size(); i++) {
+    for (unsigned long i=0; i < str1_expected.size(); i++) {
         REQUIRE( str1_locs.at(i) == str1_expected.at(i) );
     }
 
-    for (unsigned long i=0; i < str2_locs.size(); i++) {
+    for (unsigned long i=0; i < str2_expected.size(); i++) {
         REQUIRE( str2_locs.at(i) == str2_expected.at(i) );
     }
 
-    for (unsigned long i=0; i < str3_locs.size(); i++) {
+    for (unsigned long i=0; i < str3_expected.size(); i++) {
         REQUIRE( str3_locs.at(i) == str3_expected.at(i) );
     }
 
@@ -352,15 +354,15 @@ TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
     vector<int> str7_locs = test_array->find_all_inexact(str7, 3);
     vector<int> str7_locs2 = test_array->find_all_inexact(str7, 1);
 
-    for (unsigned long i=0; i < str5_locs.size(); i++) {
+    for (unsigned long i=0; i < str5_expected.size(); i++) {
         REQUIRE( str5_locs.at(i) == str5_expected.at(i) );
     }
 
-    for (unsigned long i=0; i < str6_locs.size(); i++) {
+    for (unsigned long i=0; i < str6_expected.size(); i++) {
         REQUIRE( str6_locs.at(i) == str6_expected.at(i) );
     }
 
-    for (unsigned long i=0; i < str7_locs.size(); i++) {
+    for (unsigned long i=0; i < str7_expected.size(); i++) {
         REQUIRE( str7_locs.at(i) == str7_expected.at(i) );
     }
 
@@ -387,15 +389,15 @@ TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
 
     REQUIRE( str8_locs0.empty() );
 
-    for (unsigned long i=0; i < str8_locs1.size(); i++) {
+    for (unsigned long i=0; i < str8_expected1.size(); i++) {
         REQUIRE( str8_locs1.at(i) == str8_expected1.at(i) );
     }
 
-    for (unsigned long i=0; i < str8_locs2.size(); i++) {
+    for (unsigned long i=0; i < str8_expected2.size(); i++) {
         REQUIRE( str8_locs2.at(i) == str8_expected2.at(i) );
     }
 
-    for (unsigned long i=0; i < str8_locs3.size(); i++) {
+    for (unsigned long i=0; i < str8_expected3.size(); i++) {
         REQUIRE( str8_locs3.at(i) == str8_expected3.at(i) );
     }
 
@@ -405,7 +407,7 @@ TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
     vector<int> pnt_mut_expected = {0};
     vector<int> pnt_mut_loc = genetic.find_all_inexact(pnt_mutation, 1);
 
-    for (unsigned long i=0; i < pnt_mut_loc.size(); i++) {
+    for (unsigned long i=0; i < pnt_mut_expected.size(); i++) {
         REQUIRE( pnt_mut_loc.at(i) == pnt_mut_expected.at(i) );
     }
 }
@@ -421,7 +423,7 @@ TEST_CASE("Extra : complementizer", "[complementizer]") {
     string orig2 = "aaaaaaaaaa";
     string comped2 = complementizer(orig2);
 
-    REQUIRE(comped2 == "tttttttttt");
+    REQUIRE(comped2 == "tttttttttt"); // aaaaa
 
     // non-genetic string can't be processed
     string orig3 = "banana";
@@ -473,32 +475,134 @@ TEST_CASE("Suffix Array : special_search", "[special_search]") {
     REQUIRE( !genetic.special_search(str2_1, false, 1) );
 
     // Non-reversed complement
-    string str3 = "gggggaaa";
-    string str3_1 = "ttttt";
+    string str3 = "gggggaaa"; // cccccttt
+    string str3_1 = "ttttt"; // aaaaa
     REQUIRE( genetic.special_search(str3, true, 0, true, false) );
     REQUIRE( !genetic.special_search(str3_1, true, 0, true, false) );
 
     // Reversed non-complement
-    string str4 = "tcgtcgtcg";
-    string str4_1 = "aggg";
+    string str4 = "tcgtcgtcg"; // gctgctgct
+    string str4_1 = "aggg"; // ggga
     REQUIRE( genetic.special_search(str4, true, 0, false, true) );
     REQUIRE( !genetic.special_search(str4_1, true, 0, false, true) );
 
     // Exact Reversed complement
-    string str5 = "aaaagggg";
-    string str5_1 = "ttttt";
+    string str5 = "aaaagggg";// cccctttt
+    string str5_1 = "ttttt"; // aaaaa
     REQUIRE( genetic.special_search(str5, true, 0, true, true) );
     REQUIRE( !genetic.special_search(str5_1, true, 0, true, true) );
 
     // Inexact Reversed complement
-    string str6 = "aaaagtgg";
-    string str6_1 = "ttttt";
+    string str6 = "aaaagtgg"; // ccactttt
+    string str6_1 = "ttttt"; // aaaaa
     REQUIRE( genetic.special_search(str6, false, 1, true, true) );
     REQUIRE( !genetic.special_search(str6_1, false, 1, true, true) );
 
     // Including characters not in the set {actg} while trying to complementize
     string str7 = "aaax";
     REQUIRE( !genetic.special_search(str7, true, 0, true, true) );
+}
+
+TEST_CASE("Suffix Array : special_find_all", "[special_find_all]") {
+    char gen_str[] = "cccccttttttagggcctgctgctgctgctgctg";
+    Suffix_Array genetic = Suffix_Array(gen_str);
+
+    // Normal Search
+    string str1 = "ccccc";
+    string str1_1 = "aaaaa";
+
+    vector<int> str1_locs = genetic.special_find_all(str1);
+    vector<int> str1_1_locs = genetic.special_find_all(str1_1);
+
+    vector<int> str1_expected = {0};
+
+    for (unsigned long i=0; i < str1_expected.size(); i++) {
+        REQUIRE( str1_locs[i] == str1_expected[i] );
+    }
+
+    REQUIRE( str1_1_locs.empty() );
+
+    // inexact search
+    string str2 = "cctcc";
+    string str2_1 = "aaaa";
+
+    vector<int> str2_locs = genetic.special_find_all(str2, false, 1);
+    vector<int> str2_1_locs = genetic.special_find_all(str2_1, false, 1);
+
+    vector<int> str2_expected = {0, 15};
+
+    for (unsigned long i=0; i < str2_expected.size(); i++) {
+        REQUIRE( str2_locs[i] == str2_expected[i] );
+    }
+
+    REQUIRE( str2_1_locs.empty() );
+
+    // Non-reversed complement
+    string str3 = "gggggaaa"; // cccccttt
+    string str3_1 = "ttttt"; // aaaaa
+
+    vector<int> str3_expected = {0};
+
+    vector<int> str3_locs = genetic.special_find_all(str3, false, 1);
+    vector<int> str3_1_locs = genetic.special_find_all(str3_1, false, 1);
+
+    for (unsigned long i=0; i < str3_expected.size(); i++) {
+        REQUIRE( str3_locs[i] == str3_expected[i] );
+    }
+
+    REQUIRE( str3_1_locs.empty() );
+
+    // Reversed non-complement
+    string str4 = "tcgtcgtcg"; // gctgctgct
+    string str4_1 = "aggg"; // ggga
+
+    vector<int> str4_expected = {24, 21, 18};
+
+    vector<int> str4_locs = genetic.special_find_all(str4, true, 0, false, true);
+    vector<int> str4_1_locs = genetic.special_find_all(str4_1, true, 0, false, true);
+
+    for (unsigned long i=0; i < str4_expected.size(); i++) {
+        REQUIRE( str4_locs[i] == str4_expected[i] );
+    }
+
+    REQUIRE( str4_1_locs.empty() );
+
+    // Exact Reversed complement
+    string str5 = "aaaagggg"; // cccctttt
+    string str5_1 = "ttttt"; // aaaaa
+
+    vector<int> str5_expected = {1};
+
+    vector<int> str5_locs = genetic.special_find_all(str5, true, 0, true, true);
+    vector<int> str5_1_locs = genetic.special_find_all(str5_1, true, 0, true, true);
+
+    for (unsigned long i=0; i < str5_expected.size(); i++) {
+        REQUIRE( str5_locs[i] == str5_expected[i] );
+    }
+
+    REQUIRE( str5_1_locs.empty() );
+
+    // Inexact Reversed complement
+    string str6 = "aaaagtgg"; // ccactttt
+    string str6_1 = "ttttt"; // aaaaa
+
+    vector<int> str6_expected = {1};
+
+    vector<int> str6_locs = genetic.special_find_all(str6, false, 1, true, true);
+    vector<int> str6_1_locs = genetic.special_find_all(str6_1, false, 1, true, true);
+
+    for (unsigned long i=0; i < str6_expected.size(); i++) {
+        REQUIRE( str6_locs[i] == str6_expected[i] );
+    }
+
+    REQUIRE( str6_1_locs.empty() );
+
+    // Including characters not in the set {actg} while trying to complementize
+    string str7 = "aaax";
+
+    vector<int> str7_locs = genetic.special_find_all(str7, true, 0, true, true);
+
+    REQUIRE( str7_locs.empty() );
 }
 
 /************************************************************/

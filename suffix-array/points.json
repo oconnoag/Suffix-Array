@@ -10,6 +10,8 @@
         { "search_inexact" : 3 },
         { "find_all_inexact" : 4 },
         { "complementizer" : 1 },
-        { "reverser" : 1 }
+        { "reverser" : 1 },
+        { "special_search" : 2 },
+        { "special_find_all" : 3 }
     ]
 }
