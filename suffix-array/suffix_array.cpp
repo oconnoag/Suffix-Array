@@ -344,7 +344,6 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
 
     // Find the index of the position where the first letter of the search string is
     int bin_search_index = this->binary_search( string(1, search_string[0]) );
-    cout << "bsi " << bin_search_index << endl;
 
     // Is it an inexact match?
     if ( inexact_compare(&this->orig_text[this->index_array[bin_search_index]],
@@ -353,7 +352,7 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
         matches.push_back(this->index_array[bin_search_index]);
 
     }
-    
+
     // Look across other suffixes starting with the same first letter
     bool last_matched = 0;
     while ( (++bin_search_index < this->num_suffixes)
@@ -366,7 +365,6 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
         // More efficient for long strings with similar patterns (like
         // genetic sequences) since we are dealing with time constant
         // operations instead of linear ones
-        cout << this->lcp[bin_search_index] << endl;
         if ( last_matched && this->lcp[bin_search_index] >= ss_len ) {
             matches.push_back(this->index_array[bin_search_index]);
             continue;
@@ -389,18 +387,55 @@ vector<int> Suffix_Array::find_all_inexact(string& search_string, int mismatch_t
 
 }
 
-bool Suffix_Array::special_search(string& search_string,
+bool Suffix_Array::special_search(string search_string,
                     bool exact, int mismatch_threshold,
                     bool complement, bool reverse) {
-    return 1;
+
+    // Complementize if necessary
+    if (complement) {
+        if ( (search_string = complementizer(search_string)) == "ERROR" ) {
+            return 0;
+        }
+    }
+
+    // Reverse if necessary
+    if (reverse) {
+        search_string = reverser(search_string);
+    }
+
+    // Search
+    if (exact || mismatch_threshold == 0) {
+        return this->search_exact(search_string);
+    } else {
+        return this->search_inexact(search_string, mismatch_threshold);
+    }
+
 }
 
-vector<int> Suffix_Array::special_find_all(string& search_string,
+vector<int> Suffix_Array::special_find_all(string search_string,
                              bool exact, int mismatch_threshold,
                              bool complement, bool reverse) {
     vector<int> matches;
 
-    return matches;
+    // Complementize if necessary
+    if (complement) {
+        if ( (search_string = complementizer(search_string)) == "ERROR" ) {
+            return matches;
+        }
+    }
+
+    // Reverse if necessary
+    if (reverse) {
+        search_string = reverser(search_string);
+    }
+
+    // Search
+    if (exact || mismatch_threshold == 0) {
+        return this->find_all_exact(search_string);
+    } else {
+        return this->find_all_inexact(search_string, mismatch_threshold);
+    }
+
 }
 
 /************************************************************/

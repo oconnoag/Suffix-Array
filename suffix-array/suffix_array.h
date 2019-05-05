@@ -114,13 +114,13 @@ public:
 
     //
     // Note: case-sensitive
-    bool special_search(string& search_string,
+    bool special_search(string search_string,
                         bool exact=true, int mismatch_threshold=0,
                         bool complement=false, bool reverse=false);
 
     //
     // Note: case-sensitive
-    vector<int> special_find_all(string& search_string,
+    vector<int> special_find_all(string search_string,
                                  bool exact=true, int mismatch_threshold=0,
                                  bool complement=false, bool reverse=false);
 

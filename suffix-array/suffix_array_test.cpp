@@ -202,7 +202,6 @@ TEST_CASE("Suffix Array : find_all_exact", "[find_all_exact]") {
     }
 
     for (unsigned long i=0; i < str2_expected.size(); i++) {
-        cout << str2_locs.at(i) << endl;
         REQUIRE( str2_locs.at(i) == str2_expected.at(i) );
     }
 
@@ -315,8 +314,6 @@ TEST_CASE("Suffix Array : find_all_inexact", "[find_all_inexact]") {
     vector<int> str3_expected = {4, 2};
 
     vector<int> str1_locs = test_array->find_all_inexact(str1, 0);
-    cout << "str1_locs " << endl;
-    std::copy(str1_locs.begin(), str1_locs.end(), std::ostream_iterator<char>(std::cout, " "));
     vector<int> str2_locs = test_array->find_all_inexact(str2, 0);
     vector<int> str3_locs = test_array->find_all_inexact(str3, 0);
 
@@ -517,7 +514,7 @@ TEST_CASE("Suffix Array : special_find_all", "[special_find_all]") {
     vector<int> str1_expected = {0};
 
     for (unsigned long i=0; i < str1_expected.size(); i++) {
-        REQUIRE( str1_locs[i] == str1_expected[i] );
+        REQUIRE( str1_locs.at(i) == str1_expected.at(i) );
     }
 
     REQUIRE( str1_1_locs.empty() );
@@ -532,7 +529,7 @@ TEST_CASE("Suffix Array : special_find_all", "[special_find_all]") {
     vector<int> str2_expected = {0, 15};
 
     for (unsigned long i=0; i < str2_expected.size(); i++) {
-        REQUIRE( str2_locs[i] == str2_expected[i] );
+        REQUIRE( str2_locs.at(i) == str2_expected.at(i) );
     }
 
     REQUIRE( str2_1_locs.empty() );
@@ -543,11 +540,11 @@ TEST_CASE("Suffix Array : special_find_all", "[special_find_all]") {
 
     vector<int> str3_expected = {0};
 
-    vector<int> str3_locs = genetic.special_find_all(str3, false, 1);
-    vector<int> str3_1_locs = genetic.special_find_all(str3_1, false, 1);
+    vector<int> str3_locs = genetic.special_find_all(str3, false, 0, true, false);
+    vector<int> str3_1_locs = genetic.special_find_all(str3_1, false, 0, true, false);
 
     for (unsigned long i=0; i < str3_expected.size(); i++) {
-        REQUIRE( str3_locs[i] == str3_expected[i] );
+        REQUIRE( str3_locs.at(i) == str3_expected.at(i) );
     }
 
     REQUIRE( str3_1_locs.empty() );
@@ -562,7 +559,7 @@ TEST_CASE("Suffix Array : special_find_all", "[special_find_all]") {
     vector<int> str4_1_locs = genetic.special_find_all(str4_1, true, 0, false, true);
 
     for (unsigned long i=0; i < str4_expected.size(); i++) {
-        REQUIRE( str4_locs[i] == str4_expected[i] );
+        REQUIRE( str4_locs.at(i) == str4_expected.at(i) );
     }
 
     REQUIRE( str4_1_locs.empty() );
@@ -577,7 +574,7 @@ TEST_CASE("Suffix Array : special_find_all", "[special_find_all]") {
     vector<int> str5_1_locs = genetic.special_find_all(str5_1, true, 0, true, true);
 
     for (unsigned long i=0; i < str5_expected.size(); i++) {
-        REQUIRE( str5_locs[i] == str5_expected[i] );
+        REQUIRE( str5_locs.at(i) == str5_expected.at(i) );
     }
 
     REQUIRE( str5_1_locs.empty() );
@@ -592,7 +589,7 @@ TEST_CASE("Suffix Array : special_find_all", "[special_find_all]") {
     vector<int> str6_1_locs = genetic.special_find_all(str6_1, false, 1, true, true);
 
     for (unsigned long i=0; i < str6_expected.size(); i++) {
-        REQUIRE( str6_locs[i] == str6_expected[i] );
+        REQUIRE( str6_locs.at(i) == str6_expected.at(i) );
     }
 
     REQUIRE( str6_1_locs.empty() );

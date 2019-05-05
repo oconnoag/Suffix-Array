@@ -24,6 +24,8 @@ int main(int argc, char* argv[]) {
         cout << "f: " << founders << endl;
     }
 
+    cout << "test " << (int)'a' << endl;
+
 
     cout << endl << endl;
 
