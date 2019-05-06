@@ -7,7 +7,7 @@ Working with biological data (e.g. protein sequences, genomic sequences, etc) in
 The main features of this implementation of a suffix array are searching for
 substrings within the original text used to construct the suffix array.
 
-<code>Usage: ./suffix_array_main <filename></code>
+<code>Usage: ./suffix_array_main filename</code>
 
 The format of the data will be important for accurate search of the suffix
 suffix array.  The expected format is a single line of lower-case characters
@@ -27,7 +27,7 @@ Features:
         <li>Find All Inexact (using a mismatch threshold)</li>
     </ul>
 
-    <small>All of these methods can be augmented by searching for reversed and/or complemented sequences (latter option only viable for genetic sequences)</small>
+    All of these methods can be augmented by searching for reversed and/or complemented sequences (latter option only viable for genetic sequences)
 
 <h3>SUFFIX ARRAY BASICS</h3>
 
