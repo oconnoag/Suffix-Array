@@ -20,12 +20,14 @@ made exclusively of characters in the set {a,c,t,g}, pay attention to
 performance.
 
 Features:
-    - Search Exact
-    - Find All Exact
-    - Search Inexact (using a mismatch threshold)
-    - Find All Inexact
+    <li>
+        <ul>Search Exact</ul>
+        <ul>Find All Exact</ul>
+        <ul>Search Inexact (using a mismatch threshold)</ul>
+        <ul>Find All Inexact (using a mismatch threshold)</ul>
+    </li>
 
-    - All of these methods can be augmented by searching for reversed and/or complemented sequences (latter option only viable for genetic sequences).
+    <small>All of these methods can be augmented by searching for reversed and/or complemented sequences (latter option only viable for genetic sequences)</small>
 
 <h3>SUFFIX ARRAY BASICS</h3>
 
