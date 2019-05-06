@@ -49,7 +49,7 @@ int main ( int argc, char *argv[] ) {
                 cout << endl;
                 cout << "---------------------------------------------------------------------------" << endl;
                 cout << "What would you like to do? (Type number of action) " << endl;
-                cout << "\t" << "(1) See Suffix Array" << endl;
+                cout << "\t" << "(1) See Suffix Array (May not work well for large strings)" << endl;
                 cout << "\t" << "(2) Search for a substring" << endl;
                 cout << "\t" << "(3) Find all locations of a substring" << endl;
                 cout << "\t" << "(4) Exit" << endl;
