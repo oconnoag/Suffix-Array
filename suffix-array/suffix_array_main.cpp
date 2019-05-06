@@ -54,6 +54,10 @@ int main ( int argc, char *argv[] ) {
                 cout << "\t" << "(3) Find all locations of a substring" << endl;
                 cout << "\t" << "(4) Exit" << endl;
                 cout << "---------------------------------------------------------------------------" << endl;
+                cout << "Note, if you know your sequence you can just type all options separated by a space" << endl;
+                cout << "Ex: '2 y y y' => Search for a reversed complemented version of the search string" << endl;
+                cout << "Ex: '3 n 1 n n' => Find all inexact locations of the search_string" << endl;
+                cout << "---------------------------------------------------------------------------" << endl;
                 cout << endl;
 
                 int choice = int_choice_preprocessing(1, 4);
@@ -71,6 +75,7 @@ int main ( int argc, char *argv[] ) {
             }
 
             // Close File
+            cout << "Exiting . . . " << endl;
             input_file.close();
         }
 
@@ -132,6 +137,7 @@ void process(int choice, Suffix_Array& sa) {
     if ( choice == 1 ) {
         sa.print_suffixes();
     } else if ( choice == 4 ) {
+        cout << "Exiting . . . " << endl;
         exit(1);
     } else {
         // Exact Search
@@ -143,18 +149,18 @@ void process(int choice, Suffix_Array& sa) {
         if ( !exact ) {
             cout << "\nWhat is the mismatch tolerance for the query?" << endl;
             cout << " - How many characters can be mismatched?" << endl;
-            mismatch_threshold = int_choice_preprocessing(0, (1<<31) - 1 );
+            mismatch_threshold = int_choice_preprocessing(0, (1<<31) - 1 ); // Highest is the max signed int
         } else {
             mismatch_threshold = 0;
         }
 
         // Complement
-        cout << "\nUse the complement of the inputted string? " << flush;
+        cout << "\nUse the complement of the inputted string? (y/n) " << flush;
         cout << "  (Note: String must only include characters in the set {a,c,t,g})" << endl;
         bool complement = (yn_choice_preprocessing() == 'y') ? 1 : 0;
 
         // Reverse
-        cout << "\nUse the reverse of the inputted string?" << endl;
+        cout << "\nUse the reverse of the inputted string? (y/n) " << endl;
         bool reverse = (yn_choice_preprocessing() == 'y') ? 1 : 0;
 
         // Flush the cin buffer and clear any flags
