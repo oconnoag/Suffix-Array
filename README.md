@@ -20,12 +20,12 @@ made exclusively of characters in the set {a,c,t,g}, pay attention to
 performance.
 
 Features:
-    <li>
-        <ul>Search Exact</ul>
-        <ul>Find All Exact</ul>
-        <ul>Search Inexact (using a mismatch threshold)</ul>
-        <ul>Find All Inexact (using a mismatch threshold)</ul>
-    </li>
+    <ul>
+        <li>Search Exact</li>
+        <li>Find All Exact</li>
+        <li>Search Inexact (using a mismatch threshold)</li>
+        <li>Find All Inexact (using a mismatch threshold)</li>
+    </ul>
 
     <small>All of these methods can be augmented by searching for reversed and/or complemented sequences (latter option only viable for genetic sequences)</small>
 
