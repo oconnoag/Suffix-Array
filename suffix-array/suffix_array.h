@@ -36,9 +36,6 @@ private:
     // using a naive approach with comparison-based sorting O( n^2 log(n) )
     int* naive_builder(char* input_text);
 
-    // TODO
-    int* skew_builder();
-
     // Builds the lcp for the canonical banana string for testing purposes
     int* test_lcp_builder();
 
@@ -77,7 +74,8 @@ public:
     // Print out a string representation of the lcp
     void print_lcp();
 
-    //
+    // Prints all of the suffixes from the original text in sorted order
+    // with all of the suffix array indicies and the lcp values
     void print_suffixes();
 
     // Returns the portion of the original text that is of a specified length
@@ -99,28 +97,90 @@ public:
     //    and N is the length of the original_text
     int binary_search(string search_string);
 
+    // Searches for a single exact match of the search string within
+    // the original text.
+    //
+    // Complexity: O(P logN) + O(p)
+    //   - First O: Binary Search,
+    //   - Second O: string.compare
     //
     // Note: case-sensitive
     bool search_exact(string& search_string);
 
+    // Find all of the locations of the matching search_strings within
+    // the original text.
+    //
+    // This is done by binary searching for the location of the first
+    // instance of the search_string in the original_text. Then,
+    // iterate down the suffix array.  If the lcp for the i+1th suffix
+    // is greater than or equal to the length of the search string, then
+    // there is another exact match and that location is pushed to the
+    // match vector.
+    //
+    // Complexity: O(P logN) + O(p) + O(1)
+    //   - First O: Binary Search,
+    //   - Second O: string.compare
+    //   - third O: get lcp and compare
     //
     // Note: case-sensitive
     vector<int> find_all_exact(string& search_string);
 
+    // Searches for a single inexact match (with a given mismatch threshold)
+    // of the search string within the original text.
+    //
+    // Complexity: O(P logN) + O(p)
+    //   - First O: Binary Search,
+    //   - Second O: string.inexact_compare
     //
     // Note: case-sensitive
     bool search_inexact(string& search_string, int mismatch_threshold);
 
+    // Find all of the locations of the "inexact" matching search_strings within
+    // the original text based on the mismatch_threshold.
+    //
+    // This process differs from the exact find all algorithmically.  Because
+    // it is possible that inexact matches can skip over certain suffixes,
+    // it is very challenging to actually find all of the these matches.
+    // In fact, only substrings that start with the same letter as the
+    // search_string can actually be found.  A shortcoming of the procedure
+    // but still an effective one in practice.
+    //
+    // Start by finding the first suffix that starts with the same letter
+    // as the suffix string.  Then iterate down the suffix array until all of
+    // the suffixes that start with that first letter have been parsed.
+    // There are two scenarios for a comparison.
+    //  1) If the previous suffix was an inexact match, and the i+1th suffix
+    //     has an lcp greater than or equal to the search_string, then that
+    //     suffix is also a match.
+    //  2) If the previous suffix was not an inexact match, then we use
+    //     the inexact_comparison function to determine if the i+1th suffix
+    //     is a match
+    //
+    // Complexity: O(P logN) + O(p) + O(1)
+    //   - First O: Binary Search,
+    //   - Second O: inexact comparison (higher constant than the exact search,
+    //               since there are likely going to be many of these going on)
+    //   - third O: get lcp and compare
     //
     // Note: case-sensitive
     vector<int> find_all_inexact(string& search_string, int mismatch_threshold);
 
+    // Wrapper function that brings all of the functionality to the search
+    // function of the Suffix Array (inexact or exact).
+    //
+    // Users can specify to search for an (in)exact match of the complemented
+    // and/or reversed search_string
     //
     // Note: case-sensitive
     bool special_search(string search_string,
                         bool exact=true, int mismatch_threshold=0,
                         bool complement=false, bool reverse=false);
 
+    // Wrapper function that brings all of the functionality to the find_all
+    // function of the Suffix Array (inexact or exact).
+    //
+    // Users can specify to search for all (in)exact matches of the complemented
+    // and/or reversed search_string
     //
     // Note: case-sensitive
     vector<int> special_find_all(string search_string,
