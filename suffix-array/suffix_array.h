@@ -46,6 +46,8 @@ private:
     // the counter is not reset to 0, so certain comparisons are skipped.
     //
     // This yields a complexity of O(n)
+    //
+    // Source:  Kasai, T., Lee, G., Arimura, H., Arikawa, S., & Park, K. (2001, July). Linear-time longest-common-prefix computation in suffix arrays and its applications. In Annual Symposium on Combinatorial Pattern Matching (pp. 181-192). Springer, Berlin, Heidelberg.
     int* lcp_builder(char* input_text);
 
 public:
